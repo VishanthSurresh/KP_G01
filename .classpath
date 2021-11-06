@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="app"/>
+	<classpathentry kind="src" path="target/scala-2.13/routes/main"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="lib" path="sbt-dist/bin/sbt-launch.jar"/>
+	<classpathentry kind="output" path="target/scala-2.13/classes"/>
+</classpath>
