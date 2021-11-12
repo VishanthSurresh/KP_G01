@@ -22,3 +22,10 @@ lazy val root = (project in file("."))
     // Make verbose tests
     testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
   )
+libraryDependencies += guice
+
+libraryDependencies ++= Seq(
+  javaWs
+)
+libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.13"
+libraryDependencies +="commons-httpclient" % "commons-httpclient" % "3.1"
