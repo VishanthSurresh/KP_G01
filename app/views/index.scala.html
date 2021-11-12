@@ -1,31 +1,32 @@
-@*
-* This template takes a two arguments, a String containing a
-* message to display and an AssetsFinder to locate static assets.
-*@
-@(message: String)(implicit assetsFinder: AssetsFinder)
+@import play.mvc.Http.Request
+@import helper._
+@main("Welcome to Play") {
+   <div style="position: absolute;top: 0;left: 0;height: 100%;width: 100%;display: flex;justify-content: center">
 
-<!DOCTYPE html>
-<html>
-<body>
-<main>
-    <link rel="stylesheet" type="text/css" href="/assets/stylesheets/style.css">
-    <div class="container">
-        <h1>Gitterific</h1>
-        <h2>Enter the Text</h2>
-        <div class="search-box">
-            <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-            <form action="" class="search-form">
-                <input type="text" placeholder="Search" id="search" autocomplete="off">
-            </form>
-            <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
-             xml:space="preserve">
-          <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
-          <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
-        </svg>
-            <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
-        </div>
+        <div style="flex-direction: column;
+            display: flex;">
+            <div style="    border: 4px dashed purple;
+                height: fit-content;
+                margin-top: 2em;
+                width: 55em;
+                text-align: center;">
+                <h3 style="color: red">Welcome to YouTubeAnalyzer</h3>
 
-    </div>
-</main>
-</body>
-</html>
+                <div style="margin-bottom: 1em">
+                @helper.form(action = routes.HomeController.search()){
+                }
+                    <input type="text" style="border-color: cornflowerblue;
+                        outline: none;
+                        font-size: 0.8em;padding: 8px;width: 18em;display: inline-block" placeholder="(Enter search terms)" id="searchBox"/>
+                    <a style="display: inline-block;
+                        margin-left: 10px;
+                        border: 2px solid cornflowerblue;
+                        padding: 6px;
+                        border-radius: 50%;
+                        color: red;
+                        cursor: pointer;
+                        font-weight: 700;" href='/' id="go">Go!</a>
+                </div>
+            </div>
+
+}
