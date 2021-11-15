@@ -121,7 +121,6 @@ To generate the documentation for the test source files, use:
 sbt test:doc
 
 
-
 ## Running / Development
 
 visit http://localhost:9000/ in any web browser
@@ -149,11 +148,7 @@ The Feature/Development is where all other feature developments occur and is fin
 
 - [Github API](https://codesnippet.io/github-api-tutorial/)
 
-- [XMLHttpRequest](https://www.w3schools.com/xml/xml_http.asp)
-
 - [GitHub API endpoints](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
-
-- [Dependency Injection](https://www.youtube.com/watch?v=7Xomxjc8jzw)
 
 ## Contributions Best Practices
 
@@ -163,7 +158,3 @@ The Feature/Development is where all other feature developments occur and is fin
 - Make sure your PR's description contains GitHub's special keyword references that automatically close the related issue when the PR is merged. (More info at [https://github.com/blog/1506-closing-issues-via-pull-requests](https://github.com/blog/1506-closing-issues-via-pull-requests) )
 - When you make very minor changes to a PR of yours (like for example fixing a failing Travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterward so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at [https://davidwalsh.name/squash-commits-git](https://davidwalsh.name/squash-commits-git) )
 - When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.
-
-### Feature Requests and Bug Reports
-
-When you file a feature request or when you are submitting a bug report to the issue tracker, make sure you add steps to reproduce it. Especially if that bug is some weird/rare one
