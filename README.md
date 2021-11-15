@@ -23,14 +23,14 @@ For a topic, the page will display the latest 10 repositories containing this to
 For a repository (hyperlinked from the repository page), the 100 newest commits are fetched and a compile statistics about the top-10 committers has been performed, i.e., users who had the most commits, the minimum, maximum, and average number of additions and deletions across all these commits are also displayed. We have used Java 8 Streams to implement these functions.
 
 
-### Play Framework - Installation
+### 1. Play Framework - Installation
 
-1. Install SBT into your system before proceeding with running the program.
+Install SBT into your system before proceeding with running the program.
 https://www.scala-sbt.org/download.html
 
 
-## Eclipse and Play
-2. To use Eclipse for Play development, you have to configure the "sbteclipse" plugin. Open the file project/plugins.sbt and add:
+## 2. Eclipse and Play
+To use Eclipse for Play development, you have to configure the "sbteclipse" plugin. Open the file project/plugins.sbt and add:
 
 Eclipse plugin, see https://github.com/typesafehub/sbteclipse
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.2.4")
@@ -44,8 +44,8 @@ Play supports mixed-language projects (both Scala and Java in one project); for 
 For more information on Play and IDEs, see https://www.playframework.com/documentation/2.8.x/IDE.
 
 
-## The Scala Build Tool (sbt)
-3. As Play is written in Scala, it uses sbt, the Scala Build Tool. You can use sbt as a command-line tool, e.g.:
+## 3. The Scala Build Tool (sbt)
+As Play is written in Scala, it uses sbt, the Scala Build Tool. You can use sbt as a command-line tool, e.g.:
 
 sbt run       # compile and run the project
 sbt compile   # only compile the project
@@ -57,16 +57,16 @@ Note that Play supports hot reload (hot redeploy): when you run a Play project a
 
 For more details, refer to the Play build documentation at https://playframework.com/documentation/2.8.x/Build, as well as the sbt documentation at https://www.scala-sbt.org/.
 
-## Testing
-4. The starter project comes with some tests, which you can find under the test/ directory. Type
+## 4. Testing
+The starter project comes with some tests, which you can find under the test/ directory. Type
 
 sbt test
 to run the test cases (for additional options, such as only running a single test, see the documentation under https://playframework.com/documentation/2.8.x/JavaTest)
 
 The test output is located in target/test-reports.
 
-## Computing Test Coverage with JaCoCo
-5. To use JaCoCo with Play, you need to install another sbt module, sbt-jacoco. 
+## 5. Computing Test Coverage with JaCoCo
+To use JaCoCo with Play, you need to install another sbt module, sbt-jacoco. 
 
 // The JaCoCo Plugin, see https://github.com/sbt/sbt-jacoco
 addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.2.0")
@@ -94,15 +94,15 @@ The report directory (see above) contains the detailed HTML report in the famili
 
 
 
-## Adding Library Dependencies
-6. If you want to use additional libraries in your project, this is done in the file build.sbt (located in the top-level of your project directory). Simply find the library on Maven Central, like before when you configured ivy, but now select the "SBT" tab to find the configuration line for sbt. For example, to use the Apache Commons Lang library v3.11 in your project, you would add:
+## 6. Adding Library Dependencies
+If you want to use additional libraries in your project, this is done in the file build.sbt (located in the top-level of your project directory). Simply find the library on Maven Central, like before when you configured ivy, but now select the "SBT" tab to find the configuration line for sbt. For example, to use the Apache Commons Lang library v3.11 in your project, you would add:
 
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.11"
 to your build.sbt.
 
 
 
-## A Note on Configuration Files
+## 7. A Note on Configuration Files
 
 project/plugins.sbt: This file contains plugins for the sbt build tool. Here, you configure the build process (such as integration with Eclipse), as well as the version of Play being used for the project.
 ﻿project/build.properties: This file contains the version of sbt being used (this is different from the version of Play!). Note that the plugins configured above must be compatible with the sbt version you are using in your project – in general, you can't mix plugins for sbt v0.x and v1.x.
@@ -110,7 +110,7 @@ build.sbt: This file contains references to libraries and settings used within y
 conf/application.conf (as well as production.conf): These files contain the configurations for your specific Play application, such as languages, keys, databases, and security policies. They use the HOCON (Human-Optimized Config Object Notation) format; see Configuration file syntax and features.
 
 
-## Generating Documentation
+## 8. Generating Documentation
 The command to generate the documentation is
 
 sbt doc
@@ -121,12 +121,12 @@ To generate the documentation for the test source files, use:
 sbt test:doc
 
 
-## Running / Development
+## 9. Running / Development
 
 visit http://localhost:9000/ in any web browser
 
 
-### Deployments
+### 10. Deployments
 
 **Master branch**
 
@@ -138,7 +138,7 @@ The Feature/Development is where all other feature developments occur and is fin
 
 
 
-## Further Reading / Useful Links
+## 11. Further Reading / Useful Links
 
 - [Play Framework](https://www.playframework.com)
 
@@ -150,7 +150,7 @@ The Feature/Development is where all other feature developments occur and is fin
 
 - [GitHub API endpoints](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
 
-## Contributions Best Practices
+## 12. Contributions Best Practices
 
 ### Commits
 
