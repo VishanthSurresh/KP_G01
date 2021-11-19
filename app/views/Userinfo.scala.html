@@ -1,0 +1,25 @@
+@(user : User , repositories : List[Repository])
+
+@main("User Result"){
+	<div><h1 style="color:darkred;"><center>User Details</h1></div>
+
+<div class="row" style="margin:0px 10px;">
+
+<center><table><tr><th style="color : darkred;"><h1>UserName</h1> </th><th style="color : darkred;"><h1>ID</h1></th>
+<th style="color : darkred;"><h1>Email</h1></th><th style="color : darkred;"><h1>Bio</h1></th><th style="color : darkred;"><h1>Location</h1></th>
+<th style="color : darkred;"><h1>Profile Link</h1></th><th style="color : darkred;"><h1>Followers</h1></th><th style="color : darkred;"><h1>Following</h1></th></tr>
+	<tr><td><h3>@user.login</h3></td><td><h3>@user.id</h3></td>
+	<td><h3>@user.email</h3></td><td><h3>@user.bio</h3></td><td><h3>@user.location</h3></td><td><h3><a href="@user.html_url">@user.html_url</a></h3></td><td><h3>@user.followers</h3></td>
+	<td><h3>@user.following</h3></td></tr></table></center>
+
+<div><h1 style="color:darkred;">Repositories under the user</h1>
+@for(repository <- repositories){
+	<h3>@repository.name</h3>
+}
+</div>
+<div>
+
+
+</div>
+</div>
+}
