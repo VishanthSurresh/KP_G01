@@ -1,0 +1,8 @@
+@import play.mvc.Http.Request
+@(titles: List[String])
+@main("Topics") {
+    <div><h1 style="color:burlywood;"><center>Topic Repositories</h1></div>
+@for(t <- titles){
+    <div><li style="color:burlywood;"><li>@t</li>
+}
+}
