@@ -1,6 +1,9 @@
 
 # Gitterific
 
+![read](https://user-images.githubusercontent.com/35566310/142740237-d53da630-dc37-478a-bcc5-23cee595d510.jpg)
+
+
 #### Introduction
 
 Gitterrific is a web application that analyzes the contents on GitHub using REST API. A simple web interface is developed that takes a string with one or multiple search keywords and then displays the Author name, latest repositories and Topics matching the keyword(s) below the search. The user can enter new search terms on the output page, which will result in 10 more results being displayed (i.e., a second search will add 10 more results above the 10 results from the first search. We have implemented this using Java 8 Streams.
