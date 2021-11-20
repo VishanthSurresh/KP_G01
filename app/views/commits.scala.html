@@ -1,0 +1,86 @@
+@(results: models.CommitsResult, keys: List[String], commitData: Map[String, Integer])
+
+<section style=" margin: 0;background: linear-gradient(45deg, #7ab1af, #aea7ec);font-family: sans-serif;font-weight: 100; padding-bottom: 40px">
+  <div class="header" style="padding: 30px;
+	  text-align: center;
+	  background: #1abc9c;
+	  color: white;
+	  font-size: 30px;">
+    
+  		<h2> Repository Commit Statistics</h2>
+
+		  <div class="container" style="display: flex;justify-content: center; ">
+			<div style="padding: 5px;margin: 20px;background-color: #dee2e1;;border-radius: 5px;">
+			  <table style="
+				border-collapse: collapse;
+				box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+				 <!-- <thead style="background-color: #42a386; padding: 10px; height:50px ;">
+					<tr>
+					  <th style="border: 1px solid rgb(211, 211, 211);">Repository</th>
+					  <th  style="border: 1px solid rgb(211, 211, 211);">Owner</th>
+	  
+					</tr>
+				  </thead> -->
+				  <tbody style="background-color: #dee2e1; text-align: center;">
+					<tr style="height: 50px ">
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Maximum no.of additions </td>
+						<td style="background-color: #dee2e1;width: 200px;">@results.maxAdd</td>
+  
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Minimum no.of additions</td>
+						<td style="background-color: #dee2e1; width: 200px;">@results.minAdd</td>
+
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Average no.of additions </td>
+						<td style="background-color: #dee2e1;width: 200px;">@results.avgAdd</td>
+					  </tr> 
+
+					  <tr style="height: 50px ">
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Maximum no.of deletions</td>
+						<td style="background-color: #dee2e1;width: 200px;">@results.maxDel</td>
+  
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Minumum no.of deletions</td>
+						<td style="background-color: #dee2e1; width: 200px;">@results.minDel</td>
+
+						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Average no.of deletions</td>
+						<td style="background-color: #dee2e1;width: 200px;">@results.avgDel</td>
+					  </tr> 
+
+ 
+				  </tbody> 
+				</table>
+			</div>
+
+		</div>
+	 <h5 style="margin-left: 25px;">Showing Top @keys.size() users with highest no.of commits</h5>
+	 
+      <div class="container" style="display: flex;justify-content: center; ">
+      <div style="padding: 0px 40px 40px 40px;margin: 20px;background-color: rgb(211, 211, 211);border-radius: 5px;">
+        <table style="width:800px;
+          border-collapse: collapse;
+          border: 1px solid #ddd;
+          box-shadow: 0 0 20px rgba(0,0,0,0.1);">
+            <thead style="background-color: #42a386; padding: 10px; height:50px ;">
+              <tr>
+                <th style="border: 1px solid rgb(211, 211, 211);">User name</th>
+                <th  style="border: 1px solid rgb(211, 211, 211);">Commits count</th>
+                <th  style="border: 1px solid rgb(211, 211, 211);">User Profile Link</th>
+
+              </tr>
+            </thead>
+            <tbody style="background-color: #dee2e1; text-align: center;">
+              
+             @for(key<-keys){
+					<tr style="height: 50px ">									
+						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;">@key</td>
+						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;">@commitData.get(key)</td>
+						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;"><a href='/users/@key'>@key</td>						
+					</tr>				
+				}
+               
+            
+            </tbody> 
+          </table>
+        </div>
+         </div>
+	
+		
+</section>
