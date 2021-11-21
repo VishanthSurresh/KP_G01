@@ -10,6 +10,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import play.libs.Json;
 
+/**
+ * The below class variables will be assigned values from HomeController.java to use them in commits.scala.html
+ * @author Vishanth
+  */
+
 public class CommitsResult {
 	
 	public List<JsonNode> commitsList;
