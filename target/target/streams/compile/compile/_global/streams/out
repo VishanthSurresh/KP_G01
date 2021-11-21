@@ -1,0 +1,20 @@
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\app\controllers\HomeController.java:312:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   class Test[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.HomeController[0m
+[0m[[0m[31merror[0m] [0m[0mTest[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\app\controllers\HomeController.java:314:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable Helpers[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.HomeController[0m
+[0m[[0m[31merror[0m] [0m[0mHelpers[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\app\controllers\HomeController.java:316:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable app[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.HomeController[0m
+[0m[[0m[31merror[0m] [0m[0mapp[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\app\controllers\HomeController.java:316:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable Helpers[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.HomeController[0m
+[0m[[0m[31merror[0m] [0m[0mHelpers[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\app\controllers\HomeController.java:317:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   method assertEquals(int,int)[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.HomeController[0m
+[0m[[0m[31merror[0m] [0m[0massertEquals[0m

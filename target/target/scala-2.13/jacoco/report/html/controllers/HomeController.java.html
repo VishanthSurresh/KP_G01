@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package controllers;
+
+import models.*;
+
+import play.mvc.*;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import javax.inject.Inject;
+
+import github.GithubHelper;
+
+import java.io.IOException;
+
+import play.api.libs.json.Json;
+import play.libs.ws.*;
+
+// TODO: Auto-generated Javadoc
+/**
+ * This controller contains an action to handle HTTP requests
+ * to the application's home page.
+ */
+public class HomeController extends Controller implements WSBodyReadables, WSBodyWritables {
+    
+    /** The ws. */
+    private final WSClient ws;
+    
+    /** The github. */
+    private final GithubHelper github;
+    
+    /** The issue search result. */
+    private final IssueSearchResult issueSearchResult;
+    
+    /** The topic service. */
+    private final TopicService topicService;
+    
+    /** The user. */
+    User user;
+    
+    /** The full commits result. */
+    JsonNode fullCommitsResult;
+    
+    /** The max add list. */
+<span class="fc" id="L51">    List&lt;Integer&gt; maxAddList = new ArrayList&lt;&gt;();</span>
+    
+    /** The max del list. */
+<span class="fc" id="L54">    List&lt;Integer&gt; maxDelList = new ArrayList&lt;&gt;();</span>
+    
+    /** The cr. */
+    CommitsResult cr;
+    
+    
+    /**
+     * Instantiates a new home controller.
+     *
+     * @param ws the ws
+     * @param github the github
+     */
+    @Inject
+<span class="fc" id="L67">    public HomeController(WSClient ws,GithubHelper github) {</span>
+<span class="fc" id="L68">        this.ws = ws;</span>
+<span class="fc" id="L69">        this.github = github;</span>
+<span class="fc" id="L70">        this.issueSearchResult =  new IssueSearchResult(github);</span>
+<span class="fc" id="L71">        this.topicService = new TopicService(github);</span>
+<span class="fc" id="L72">    }</span>
+    
+    /**
+     * An action that renders an HTML page. The configuration in the &lt;code&gt;routes&lt;/code&gt; file means that
+     * this method will be called when the application receives a
+     * &lt;code&gt;GET&lt;/code&gt; request with a path of &lt;code&gt;/&lt;/code&gt;.
+     *
+     * @param request the request
+     * @return the result
+     */
+     
+    public Result index(Http.Request request) {
+<span class="fc" id="L84">        var sessionData = request.session().get(&quot;searchedTerms&quot;);</span>
+<span class="fc" id="L85">        System.out.println(sessionData);</span>
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if(!sessionData.isPresent()) {</span>
+<span class="fc" id="L88">            System.out.println(&quot;23&quot;+request);</span>
+<span class="fc" id="L89">            System.out.println(ws);</span>
+<span class="fc" id="L90">            return ok(views.html.index.render(new ArrayList&lt;QuerySearchResult&gt;()));</span>
+            //  return ok(views.html.index.render();
+         } else {
+<span class="nc" id="L93">             return ok(views.html.index.render(</span>
+<span class="nc" id="L94">                 Arrays.stream(sessionData.get().split(&quot;,&quot;))</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">                    .filter(e-&gt;!e.isEmpty())</span>
+<span class="nc" id="L96">                    .parallel()</span>
+<span class="nc" id="L97">                    .map(CacheManager.GetCache(ws)::GetTrimmedSearchResult)</span>
+<span class="nc" id="L98">                    .collect(Collectors.toList()))</span>
+             );
+         }
+    }
+    
+    /**
+     * This function returns the values for search result from Github API.
+     *
+     * @param query the query
+     * @param request the request
+     * @return the result
+     */
+    
+    public Result search(String query, Http.Request request) {
+<span class="nc" id="L112">        var currentSession = request.session().get(&quot;searchedTerms&quot;).orElse(&quot;&quot;);</span>
+<span class="nc" id="L113">        currentSession += &quot;,&quot; + query;</span>
+<span class="nc" id="L114">        return redirect(&quot;/&quot;)</span>
+<span class="nc" id="L115">            .addingToSession(request, &quot;searchedTerms&quot;, currentSession);</span>
+    }
+
+    /**
+     * This method fetches the repository issues from IssueSearchResult.java and RepoIssues.java
+     *
+     * @author Varshini
+     * @param user the user
+     * @param repo the repo
+     * @return the completion stage
+     */
+
+    public CompletionStage&lt;Result&gt; issues(String user, String repo){
+<span class="fc" id="L128">        CompletionStage&lt;Result&gt; result = issueSearchResult.getIssueStatistics(user+&quot;/&quot;+repo).thenApplyAsync(</span>
+<span class="fc" id="L129">                op -&gt; ok(views.html.repositoryprofile.render(op, user.toString(),issueSearchResult.getData(), issueSearchResult.getRepoName())));</span>
+                
+<span class="fc" id="L131">        return result;</span>
+    }
+    
+    /**
+     * This method fetches the Issue Statics results from IssueSearchResult.java
+     *
+     * @author Varshini
+     * @return the completion stage
+     */
+    
+    
+    public CompletionStage&lt;Result&gt; issuesstat(){
+<span class="fc" id="L143">        CompletionStage&lt;Result&gt; result = issueSearchResult.getIssueStatisticss().thenApplyAsync(</span>
+<span class="fc" id="L144">                op -&gt; ok(views.html.issuestatistics.render(op)));</span>
+        
+<span class="fc" id="L146">        return result;</span>
+    }
+    
+    /**
+     * This method fetches the top 10 topics from Topics and TopicService.java
+     *
+     * @author Heet Patel
+     * @param repo the repo
+     * @return the completion stage
+     */
+    
+    public CompletionStage&lt;Result&gt; topics(String repo){
+<span class="fc" id="L158">        CompletionStage&lt;Result&gt; result = topicService.getTopics(repo).thenApplyAsync(</span>
+<span class="fc" id="L159">                op -&gt; ok(views.html.topic.render(op)));</span>
+        
+<span class="fc" id="L161">        return result;</span>
+    }
+    
+    /**
+     * This method fetches all the user details. 
+     *
+     * @author Bhavitha
+     * @param owner the owner
+     * @return the completion stage
+     */
+    
+    
+    
+    public CompletionStage&lt;Result&gt; fetchUser(final String owner) {
+<span class="fc" id="L175">                return ws.url(&quot;https://api.github.com/users/&quot;+owner)</span>
+            //.addHeader(&quot;Authorization&quot;, &quot;token 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&quot;)
+<span class="fc" id="L177">            .get()</span>
+<span class="fc" id="L178">            .thenApply(r -&gt; {</span>
+<span class="fc" id="L179">                JsonNode item = r.asJson();</span>
+<span class="fc" id="L180">                return new User(item.get(&quot;id&quot;).asInt(), item.get(&quot;login&quot;).asText(), item.get(&quot;url&quot;).asText(), item.get(&quot;email&quot;).asText(),item.get(&quot;bio&quot;).asText(),item.get(&quot;location&quot;).asText(),item.get(&quot;followers&quot;).asText(),item.get(&quot;following&quot;).asText(),item.get(&quot;html_url&quot;).asText(),item.get(&quot;avatar_url&quot;).asText());</span>
+            })
+<span class="fc" id="L182">            .thenApplyAsync(r -&gt; {</span>
+                try {
+<span class="fc" id="L184">                    CompletionStage&lt;List&lt;Repository&gt;&gt; c = ws.url(&quot;https://api.github.com/users/&quot;+owner+&quot;/repos&quot;)</span>
+<span class="fc" id="L185">                        .addHeader(&quot;Authorization&quot;, &quot;token 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&quot;)</span>
+<span class="fc" id="L186">                        .get()</span>
+<span class="fc" id="L187">                        .thenApply(res -&gt; {</span>
+<span class="fc" id="L188">                            JsonNode items = res.asJson();</span>
+                            Repository repo;
+<span class="fc" id="L190">                            List&lt;Repository&gt; repos = new ArrayList&lt;Repository&gt;();</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">                            for (int i = 0; items.get(i) != null; i++) {</span>
+<span class="fc" id="L192">                                JsonNode item = items.get(i);</span>
+<span class="fc" id="L193">                                List&lt;String&gt; topics = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L194">                                JsonNode topicNode = item.get(&quot;topics&quot;);</span>
+<span class="fc bfc" id="L195" title="All 2 branches covered.">                                for (int j = 0; topicNode.get(j) != null; j++) {</span>
+<span class="fc" id="L196">                                    topics.add(topicNode.get(j).asText());</span>
+                                }
+<span class="fc" id="L198">                                repo = new Repository(item.get(&quot;name&quot;).asText(),item.get(&quot;url&quot;).asText());</span>
+<span class="fc" id="L199">                                repos.add(repo);</span>
+                            }
+<span class="fc" id="L201">                            return repos;</span>
+                        });
+<span class="fc" id="L203">                    return ok(views.html.Userinfo.render(r, c.toCompletableFuture().get()));</span>
+<span class="nc" id="L204">                } catch (Exception e) {</span>
+<span class="nc" id="L205">                    e.printStackTrace();</span>
+<span class="nc" id="L206">                    return null;</span>
+                }
+            });
+    
+        
+}
+    
+    /**
+     * This method returns the entire data for repository commits. And also it is used for authorization purpose to Github API to get more than 100 commits data.
+     *
+     * @author Vishanth
+     * @param url the url
+     * @return the full commits data
+     * @throws InterruptedException the interrupted exception
+     * @throws ExecutionException the execution exception
+     */
+    
+    public void get_full_commits_data(String url) throws InterruptedException, ExecutionException {
+<span class="fc" id="L224">        System.out.println(&quot;Inside get_full_commits_data&quot;);</span>
+<span class="fc" id="L225">        WSRequest req = ws.url(url).addHeader(&quot;Authorization&quot;, &quot;token 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&quot;);</span>
+<span class="fc" id="L226">        req.addQueryParameter(&quot;per_page&quot;, &quot;100&quot;);</span>
+<span class="fc" id="L227">        req.addQueryParameter(&quot;page&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L228">        req.setMethod(&quot;GET&quot;);</span>
+<span class="fc" id="L229">        CompletionStage&lt;JsonNode&gt; resFromRequest = req.get().thenApply(result -&gt; result.asJson());</span>
+<span class="fc" id="L230">        fullCommitsResult = resFromRequest.toCompletableFuture().get();</span>
+<span class="fc" id="L231">    }</span>
+    
+    /**
+     * This method returns the addition, deletion and average number of additons and deletions value for Repository Commits.
+     *
+     * @author Vishanth
+     * @param user the user
+     * @param repo the repo
+     * @return the result
+     * @throws InterruptedException the interrupted exception
+     * @throws ExecutionException the execution exception
+     */
+    
+    public Result commits(String user, String repo) throws InterruptedException, ExecutionException{
+<span class="fc" id="L245">        System.out.println(&quot;Inside get_commits_data&quot;);</span>
+        Optional&lt;Integer&gt; maxAdd, maxDel, minAdd, minDel, avgAdd, avgDel;
+<span class="fc" id="L247">        List&lt;CommitsResult&gt; topCommiters = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L248">        List&lt;String&gt; commitKeysList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L249">        String commitUrl = &quot;https://api.github.com/repos&quot; + &quot;/&quot; + user + &quot;/&quot; + repo + &quot;/commits&quot;;</span>
+<span class="fc" id="L250">        get_full_commits_data(commitUrl);</span>
+<span class="fc" id="L251">        List&lt;String&gt; shaList = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L252" title="All 2 branches covered.">        for (JsonNode sha : fullCommitsResult) {</span>
+<span class="fc" id="L253">            shaList.add(sha.get(&quot;sha&quot;).toString().replaceAll(&quot;^\&quot;|\&quot;$&quot;, &quot;&quot;));</span>
+<span class="fc" id="L254">        }</span>
+<span class="fc" id="L255">        System.out.println(&quot;Sha size: &quot; + shaList.size());</span>
+<span class="fc bfc" id="L256" title="All 2 branches covered.">        for (int i = 0; i &lt; shaList.size(); i++) {</span>
+<span class="fc" id="L257">            WSRequest req = ws.url(commitUrl + &quot;/&quot; + shaList.get(i)).addHeader(&quot;Authorization&quot;, &quot;token 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&quot;);</span>
+<span class="fc" id="L258">            req.setMethod(&quot;GET&quot;);</span>
+<span class="fc" id="L259">            CompletionStage&lt;JsonNode&gt; resFromRequest = req.get().thenApply(result -&gt; result.asJson());</span>
+<span class="fc" id="L260">            JsonNode temp = resFromRequest.toCompletableFuture().get();</span>
+            // System.out.println(Json.prettyPrint(temp.get(&quot;stats&quot;)));
+<span class="fc" id="L262">            maxAddList.add(temp.get(&quot;stats&quot;).findPath(&quot;additions&quot;).asInt());</span>
+<span class="fc" id="L263">            maxDelList.add(temp.get(&quot;stats&quot;).findPath(&quot;deletions&quot;).asInt());</span>
+<span class="fc" id="L264">            maxAdd = maxAddList.stream().max(Integer::compare);</span>
+<span class="fc" id="L265">            minAdd = maxAddList.stream().min(Integer::compare);</span>
+<span class="fc" id="L266">            avgAdd = Optional.of(maxAddList.stream().reduce(0, Integer::sum) / shaList.size());</span>
+<span class="fc" id="L267">            maxDel = maxDelList.stream().max(Integer::compare);</span>
+<span class="fc" id="L268">            minDel = maxDelList.stream().min(Integer::compare);</span>
+<span class="fc" id="L269">            avgDel = Optional.of(maxDelList.stream().reduce(0, Integer::sum) / shaList.size());</span>
+<span class="fc" id="L270">            cr = new CommitsResult(</span>
+<span class="fc" id="L271">                    temp.get(&quot;author&quot;).findPath(&quot;avatar_url&quot;).asText(),</span>
+<span class="fc" id="L272">                    temp.get(&quot;author&quot;).findPath(&quot;login&quot;).asText(),</span>
+<span class="fc" id="L273">                    temp.get(&quot;commit&quot;).findPath(&quot;message&quot;).asText(),</span>
+<span class="fc" id="L274">                    temp.get(&quot;stats&quot;).findPath(&quot;additions&quot;).asText(),</span>
+<span class="fc" id="L275">                    temp.get(&quot;stats&quot;).findPath(&quot;deletions&quot;).asText(),</span>
+<span class="fc" id="L276">                    temp.get(&quot;stats&quot;).findPath(&quot;total&quot;).asText(),</span>
+                    maxAdd,
+                    minAdd,
+                    maxDel, 
+                    minDel,
+                    avgAdd,
+                    avgDel
+                    );
+<span class="fc" id="L284">            topCommiters.add(cr);</span>
+        }
+        
+        /**
+		 * This part of code returns the Top 10 Commiters data for Repository Commits
+		 * @author Vishanth
+		 */
+        
+<span class="fc" id="L292">        List&lt;CommitsResult&gt; topTen = topCommiters.parallelStream()</span>
+<span class="fc" id="L293">                .map(c -&gt; new CommitsResult(c.get_user_name(), c.get_additions(), c.get_deletions()))</span>
+<span class="fc" id="L294">                .collect(Collectors.toList());</span>
+<span class="fc" id="L295">        Map&lt;String, Integer&gt; result = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc" id="L296">        result = topTen.parallelStream().collect(Collectors.toMap(w -&gt; w.get_user_name(), w -&gt; 1, Integer :: sum));</span>
+<span class="fc" id="L297">        result = result.entrySet()</span>
+<span class="fc" id="L298">                .stream()</span>
+<span class="fc" id="L299">                .sorted((Map.Entry.&lt;String, Integer&gt;comparingByValue().reversed()))</span>
+<span class="fc" id="L300">                .limit(10)</span>
+<span class="pc" id="L301">                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -&gt; e1, LinkedHashMap::new));</span>
+<span class="fc" id="L302">        System.out.println(result);</span>
+<span class="fc" id="L303">        Iterator&lt;String&gt; iterator = result.keySet().iterator();</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">        while(iterator.hasNext()){</span>
+<span class="fc" id="L305">          Object commitKey = iterator.next();</span>
+<span class="fc" id="L306">          commitKeysList.add((String)commitKey); </span>
+<span class="fc" id="L307">        }</span>
+    
+<span class="fc" id="L309">        return ok(views.html.commits.render(cr, commitKeysList, result));</span>
+     
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

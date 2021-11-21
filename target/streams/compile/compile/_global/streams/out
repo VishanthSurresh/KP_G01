@@ -1,4 +1,0 @@
-[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific\Gitterrific_varshini 2 copy\app\models\IssueSearchResult.java:68:1: cannot find symbol[0m
-[0m[[0m[31merror[0m] [0m[0m  symbol:   method getRepoResult(java.lang.String)[0m
-[0m[[0m[31merror[0m] [0m[0m  location: variable github of type github.GithubHelper[0m
-[0m[[0m[31merror[0m] [0m[0mgithub.getRepoResult[0m
