@@ -2,6 +2,11 @@ package models;
 
 import java.util.*;
 
+/**
+ * The below class variables(related to user details) will be assigned from HomeController.java to use them in Userinfo.scala.html
+ * @author Bhavitha
+ */
+
 
 public class User {
 	
@@ -14,9 +19,11 @@ public class User {
 	public String followers;
 	public String following;
 	public String html_url;
+	public String avatar_url;
 
 	public User() {}
-	public User(int id,String login,String url,String email,String bio,String location,String followers,String following,String html_url){
+	
+	public User(int id,String login,String url,String email,String bio,String location,String followers,String following,String html_url,String avatar_url){
 
 		this.id=id;
 		this.login=login;
@@ -27,6 +34,7 @@ public class User {
 		this.followers=followers;
 		this.following=following;
 		this.html_url=html_url;
+		this.avatar_url=avatar_url;
 	}
 
 	
