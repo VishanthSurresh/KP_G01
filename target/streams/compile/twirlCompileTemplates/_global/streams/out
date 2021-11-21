@@ -1,0 +1,3 @@
+[0m[[0m[31merror[0m] [0m[0m[Error] C:\Users\user\Downloads\Gitterrific_heet 2 copy\Gitterrific_heet 2 copy\Gitterrific_varshini 2 copy\app\views\index.scala.html:85[0m
+[0m[[0m[31merror[0m] [0m[0m</html>: Expected '"' but found 'EOF'[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mtwirlCompileTemplates[0m) Twirl compilation failed[0m

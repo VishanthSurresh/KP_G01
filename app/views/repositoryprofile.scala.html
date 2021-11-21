@@ -1,0 +1,133 @@
+@import play.mvc.Http.Request
+@(issuesStatistics: List[String],owner : String, y : RepoProfile,repo : String)
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title></title>
+</head>
+
+@main("Issue Statistics") {
+<head>
+<style>
+a:link {
+  color: black;
+  background-color: transparent;
+}
+a:hover {
+  color: blue;
+ }
+ 
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="topbar">
+    <div class="container-fluid" > <a class="navbar-brand" href="#">Gitterrific</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+      
+</nav>
+<div class='repository-details' style="padding-top: 1vh;">
+<div class="row">  
+  <div class = "col-sm-3">
+ <div class="repo-url-class" style="padding-left: 2vh;">   
+   <img src="@y.avatar_url" style="width:200px;height:200px;" alt="githuburl"> 
+</div>
+</div>
+<div class="col-sm-8">
+  <table class="table table-bordered" style="margin-right: 3vh;">
+  
+    <tbody>
+        <tr>
+          <th>Name</th>
+            <td>@y.name</td>
+            
+        </tr>
+        <tr>
+          <th>Size</th>
+            <td>@y.size</td>
+            
+        </tr>
+        <tr>
+          <th>Visibility</th>
+            <td>@y.visibility</td>
+           
+        </tr>
+         <tr>
+          <th>Watchers</th>
+            <td>@y.watchers_count</td>
+            
+        </tr>
+        <tr>
+          <th>Forks</th>
+            <td>@y.forks</td>
+            
+        </tr>
+        <tr>
+          <th>Stargazers Count</th>
+            <td>@y.stargazers_count</td>
+            
+        </tr>
+        <tr>
+          <th>Language</th>
+            <td>@y.language</td>
+            
+        </tr>
+        <tr>
+          <th>Open Issues</th>
+            <td>@y.open_issues</td>
+            
+        </tr>
+        <tr>
+          <th>Network Count</th>
+            <td>@y.network_count</td>
+            
+        </tr>
+        <tr>
+          <th>Subscribers Count</th>
+            <td>@y.subscribers_count</td>
+            
+        </tr>
+          </tbody>
+</table>
+
+</div>
+<div class="col-sm-1"></div>
+</div>
+</div>
+ <hr>
+<div class="row" style="padding-top:3vh">
+  <h5 style="padding-left:5vh">Top 20 Issues 
+  <a href ="/issuestatistics"  style="text-decoration:none;">&emsp;&emsp;&emsp;Issue Stats</a>
+  <a href ="/repos/@repo/commits" style="text-decoration:none;" >&emsp;&emsp;&emsp; Commits</a>
+  </h5> 
+  <div class="col-sm-10" style="padding-left:5vh">
+    <table class="table">
+  <thead class="table-dark">
+    <tr>
+    <th scope="col">Issues</th>
+  </tr>
+   
+  </thead>
+  <tbody>
+     @for(key <- issuesStatistics){
+
+    <tr>
+      
+<td>@key</td>
+      
+    </tr>
+  }
+  </tbody>
+</table>
+  </div>
+ 
+</div>
+</body>
+}
+</html>

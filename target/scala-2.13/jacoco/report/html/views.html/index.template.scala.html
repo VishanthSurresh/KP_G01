@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>index.template.scala</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">views.html</a> &gt; <span class="el_source">index.template.scala</span></div><h1>index.template.scala</h1><pre class="source lang-java linenums">
+package views.html
+
+import _root_.play.twirl.api.TwirlFeatureImports._
+import _root_.play.twirl.api.TwirlHelperImports._
+import _root_.play.twirl.api.Html
+import _root_.play.twirl.api.JavaScript
+import _root_.play.twirl.api.Txt
+import _root_.play.twirl.api.Xml
+import models._
+import controllers._
+import play.api.i18n._
+import views.html._
+import play.api.templates.PlayMagic._
+import java.lang._
+import java.util._
+import play.core.j.PlayMagicForJava._
+import play.mvc._
+import play.api.data.Field
+import play.data._
+import play.core.j.PlayFormsMagicForJava._
+import scala.jdk.CollectionConverters._
+
+<span class="pc" id="L24">object index extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template1[List[QuerySearchResult],play.twirl.api.HtmlFormat.Appendable] {</span>
+
+  /**/
+  def apply/*1.2*/(data : List[QuerySearchResult]):play.twirl.api.HtmlFormat.Appendable = {
+<span class="fc" id="L28">    _display_ {</span>
+      {
+/*2.2*/import scala.collection.View._
+/*3.2*/import helper._
+
+
+<span class="fc" id="L34">Seq[Any](format.raw/*4.1*/(&quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span>
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC&quot; crossorigin=&quot;anonymous&quot;&gt;
+  &lt;!-- jQuery library --&gt;
+  &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+  &lt;!-- Latest compiled JavaScript --&gt;
+  &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+<span class="fc" id="L48">&quot;&quot;&quot;),_display_(/*18.2*/main(&quot;Welcome&quot;)/*18.17*/ {_display_(Seq[Any](format.raw/*18.19*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L49">&quot;&quot;&quot;),format.raw/*19.1*/(&quot;&quot;&quot;&lt;nav class=&quot;navbar navbar-expand-lg navbar-dark bg-dark&quot; id=&quot;topbar&quot;&gt;</span>
+    &lt;div class=&quot;container-fluid&quot; &gt; &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Gitterrific&lt;/a&gt; &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarSupportedContent&quot; aria-controls=&quot;navbarSupportedContent&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt; &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt; &lt;/button&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;navbarSupportedContent&quot; style=&quot;justify-content: right;margin-right: 2vh;&quot;&gt;
+           
+             &lt;div class=&quot;search-wrapper&quot;&gt;
+    &lt;div class=&quot;search-wrapper__box&quot;&gt;
+      &lt;div style=&quot;margin-bottom: 1em&quot;&gt;
+        &lt;input
+          type=&quot;text&quot;
+          class=&quot;search-wrapper__input&quot;
+          name=&quot;q&quot;
+          placeholder=&quot;Enter Search Term&quot;
+          id=&quot;searchBox&quot;
+        /&gt;
+        &lt;button&gt;&lt;a href=&quot;#&quot; class=&quot;search-wrapper__action&quot; id=&quot;go&quot;&gt;Search&lt;/a&gt;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;  
+&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+&lt;div class=&quot;container&quot; style=&quot;margin-top:10vh;&quot;&gt; 
+
+<span class="fc" id="L72"> &quot;&quot;&quot;),_display_(/*42.3*/for((record,index) &lt;- data.zipWithIndex) yield /*42.43*/{_display_(Seq[Any](format.raw/*42.44*/(&quot;&quot;&quot; </span>
+&quot;&quot;&quot;),format.raw/*43.1*/(&quot;&quot;&quot;&lt;div class=&quot;table-div&quot; style=&quot;padding: 2vh;&quot;&gt;
+  
+&lt;caption &gt;Search terms: &quot;&quot;&quot;),_display_(/*45.26*/record/*45.32*/.getSearchTerm()),format.raw/*45.48*/(&quot;&quot;&quot; &quot;&quot;&quot;),format.raw/*45.49*/(&quot;&quot;&quot;&lt;/caption&gt;    
+
+&lt;table style=&quot;margin-top:1vh;&quot; class=&quot;m-auto table table-striped table-hover&quot;&gt;
+  
+  &lt;thead&gt;
+    &lt;tr&gt;
+
+      &lt;th scope=&quot;col&quot; style=&quot;width:40%&quot;&gt;User Name&lt;/th&gt;
+      &lt;th scope=&quot;col&quot; style=&quot;width:40%&quot;&gt;Repo Name&lt;/th&gt;
+      &lt;th scope=&quot;col&quot; style=&quot;width:40%&quot;&gt;Topic&lt;/th&gt;
+      
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &quot;&quot;&quot;),_display_(/*59.6*/for(post  &lt;- record.getData()) yield /*59.36*/ {_display_(Seq[Any](format.raw/*59.38*/(&quot;&quot;&quot;
+    &quot;&quot;&quot;),format.raw/*60.5*/(&quot;&quot;&quot;&lt;tr&gt;
+	  &lt;td&gt;&lt;span id = &quot;&quot;&quot;),_display_(/*61.20*/index),_display_(/*61.26*/post/*61.30*/.full_name),format.raw/*61.40*/(&quot;&quot;&quot;&gt;&lt;/span&gt;
+      &lt;/td&gt;
+      &lt;td&gt;&lt;span&gt;&lt;a  href=&quot;/issue/&quot;&quot;&quot;),_display_(/*63.35*/post/*63.39*/.full_name),format.raw/*63.49*/(&quot;&quot;&quot;&quot;&gt;&quot;&quot;&quot;),_display_(/*63.52*/post/*63.56*/.name),format.raw/*63.61*/(&quot;&quot;&quot;&lt;/a&gt;&lt;/span&gt;
+      &lt;/td&gt;
+      
+      &lt;td&gt;&quot;&quot;&quot;),_display_(/*66.12*/for(topic&lt;- post.topics) yield /*66.36*/{_display_(Seq[Any](format.raw/*66.37*/(&quot;&quot;&quot;
+              &quot;&quot;&quot;),format.raw/*67.15*/(&quot;&quot;&quot;&lt;span&gt;&lt;a href=&quot;/topic/&quot;&quot;&quot;),_display_(/*67.38*/topic),format.raw/*67.43*/(&quot;&quot;&quot; &quot;&quot;&quot;),format.raw/*67.44*/(&quot;&quot;&quot;&quot;&gt;[&quot;&quot;&quot;),_display_(/*67.48*/topic),format.raw/*67.53*/(&quot;&quot;&quot;]&lt;/a&gt;&lt;/span&gt;
+              &quot;&quot;&quot;)))}),format.raw/*68.16*/(&quot;&quot;&quot;&lt;/td&gt;
+        &lt;script&gt;
+        var names = &quot;&quot;&quot;&quot;),_display_(/*70.23*/post/*70.27*/.full_name),format.raw/*70.37*/(&quot;&quot;&quot;&quot;;
+        var profile_name = names.split(&quot;/&quot;)[0];
+        var mydiv = document.getElementById(&quot;&quot;&quot;&quot;),_display_(/*72.47*/index),_display_(/*72.53*/post/*72.57*/.full_name),format.raw/*72.67*/(&quot;&quot;&quot;&quot;);
+        var aTag = document.createElement('a');
+        aTag.setAttribute('href',&quot;/users/&quot;+profile_name);
+        aTag.innerText = profile_name;
+        mydiv.appendChild(aTag);
+        
+        // console.log(variable_name);
+       &lt;/script&gt;         
+    &lt;/tr&gt;
+    &quot;&quot;&quot;)))}),format.raw/*81.6*/(&quot;&quot;&quot;
+  &quot;&quot;&quot;),format.raw/*82.3*/(&quot;&quot;&quot;&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;/div&gt;
+
+<span class="fc" id="L117">&quot;&quot;&quot;)))}),format.raw/*87.2*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L118">&quot;&quot;&quot;),format.raw/*88.1*/(&quot;&quot;&quot;&lt;/div&gt;</span>
+<span class="fc" id="L119">&quot;&quot;&quot;)))}),format.raw/*89.2*/(&quot;&quot;&quot;</span>
+
+<span class="fc" id="L121">&quot;&quot;&quot;),format.raw/*91.1*/(&quot;&quot;&quot;&lt;/body&gt;</span>
+&lt;/html&gt;&quot;&quot;&quot;))
+      }
+    }
+  }
+
+<span class="fc" id="L127">  def render(data:List[QuerySearchResult]): play.twirl.api.HtmlFormat.Appendable = apply(data)</span>
+
+<span class="nc" id="L129">  def f:((List[QuerySearchResult]) =&gt; play.twirl.api.HtmlFormat.Appendable) = (data) =&gt; apply(data)</span>
+
+<span class="nc" id="L131">  def ref: this.type = this</span>
+
+}
+
+
+              /*
+                  -- GENERATED --
+                  SOURCE: app/views/index.scala.html
+                  HASH: deff5344bff42dd50908f992819fa3c898052420
+                  MATRIX: 924-&gt;1|1029-&gt;35|1067-&gt;67|1111-&gt;83|1760-&gt;707|1784-&gt;722|1824-&gt;724|1852-&gt;725|2919-&gt;1766|2975-&gt;1806|3014-&gt;1807|3043-&gt;1809|3144-&gt;1883|3159-&gt;1889|3196-&gt;1905|3225-&gt;1906|3573-&gt;2228|3619-&gt;2258|3659-&gt;2260|3691-&gt;2265|3742-&gt;2289|3768-&gt;2295|3781-&gt;2299|3812-&gt;2309|3894-&gt;2364|3907-&gt;2368|3938-&gt;2378|3968-&gt;2381|3981-&gt;2385|4007-&gt;2390|4076-&gt;2432|4116-&gt;2456|4155-&gt;2457|4198-&gt;2472|4248-&gt;2495|4274-&gt;2500|4303-&gt;2501|4334-&gt;2505|4360-&gt;2510|4419-&gt;2538|4491-&gt;2583|4504-&gt;2587|4535-&gt;2597|4659-&gt;2694|4685-&gt;2700|4698-&gt;2704|4729-&gt;2714|5030-&gt;2985|5060-&gt;2988|5118-&gt;3016|5146-&gt;3017|5184-&gt;3025|5213-&gt;3027
+                  LINES: 27-&gt;1|30-&gt;2|31-&gt;3|34-&gt;4|48-&gt;18|48-&gt;18|48-&gt;18|49-&gt;19|72-&gt;42|72-&gt;42|72-&gt;42|73-&gt;43|75-&gt;45|75-&gt;45|75-&gt;45|75-&gt;45|89-&gt;59|89-&gt;59|89-&gt;59|90-&gt;60|91-&gt;61|91-&gt;61|91-&gt;61|91-&gt;61|93-&gt;63|93-&gt;63|93-&gt;63|93-&gt;63|93-&gt;63|93-&gt;63|96-&gt;66|96-&gt;66|96-&gt;66|97-&gt;67|97-&gt;67|97-&gt;67|97-&gt;67|97-&gt;67|97-&gt;67|98-&gt;68|100-&gt;70|100-&gt;70|100-&gt;70|102-&gt;72|102-&gt;72|102-&gt;72|102-&gt;72|111-&gt;81|112-&gt;82|117-&gt;87|118-&gt;88|119-&gt;89|121-&gt;91
+                  -- GENERATED --
+              */
+          
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

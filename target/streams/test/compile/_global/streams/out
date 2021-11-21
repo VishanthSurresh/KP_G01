@@ -1,0 +1,17 @@
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\test\models\RepositoryTest.java:6:1: class repositoryTest is public, should be declared in a file named repositoryTest.java[0m
+[0m[[0m[31merror[0m] [0m[0mpublic class repositoryTest {[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m	@Test[0m
+[0m[[0m[31merror[0m] [0m[0m	public void repoConstructortest() {[0m
+[0m[[0m[31merror[0m] [0m[0m		int id = 1;[0m
+[0m[[0m[31merror[0m] [0m[0m		String name = "Varshini";[0m
+[0m[[0m[31merror[0m] [0m[0m		User owner = null;[0m
+[0m[[0m[31merror[0m] [0m[0m		String url = "varshini";[0m
+[0m[[0m[31merror[0m] [0m[0m		String desc = "desc";[0m
+[0m[[0m[31merror[0m] [0m[0m		List<String> topics = new ArrayList<String>();[0m
+[0m[[0m[31merror[0m] [0m[0m		topics.add("hello");[0m
+[0m[[0m[31merror[0m] [0m[0m		Repository repo_name = new Repository(name,url);[0m
+[0m[[0m[31merror[0m] [0m[0m		repo_name.toString();[0m
+[0m[[0m[31merror[0m] [0m[0m	}[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m}[0m

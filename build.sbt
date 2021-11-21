@@ -1,31 +1,16 @@
-lazy val root = (project in file("."))
-  .enablePlugins(PlayJava)
-  .settings(
-    name := """play-java-starter-example""",
-    version := "1.0-SNAPSHOT",
-    scalaVersion := "2.13.6",
-    libraryDependencies ++= Seq(
-      guice,
-      // Test Database
-      "com.h2database" % "h2" % "1.4.199",
-      // Testing libraries for dealing with CompletionStage...
-      "org.assertj" % "assertj-core" % "3.14.0" % Test,
-      "org.awaitility" % "awaitility" % "4.0.1" % Test,
-    ),
-    javacOptions ++= Seq(
-      "-encoding", "UTF-8",
-      "-parameters",
-      "-Xlint:unchecked",
-      "-Xlint:deprecation",
-      "-Werror"
-    ),
-    // Make verbose tests
-    testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
-  )
-libraryDependencies += guice
+name := """play-java-hello-world-tutorial"""
+organization := "com.example"
 
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.13.6"
+
+libraryDependencies += guice
 libraryDependencies ++= Seq(
   javaWs
 )
-libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.5.13"
-libraryDependencies +="commons-httpclient" % "commons-httpclient" % "3.1"
+libraryDependencies += ehcache
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.8.11.4"
+PlayKeys.fileWatchService := play.dev.filewatch.FileWatchService.jdk7(play.sbt.run.toLoggerProxy(sLog.value))

@@ -1,47 +1,68 @@
 @(results: models.CommitsResult, keys: List[String], commitData: Map[String, Integer])
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<section style=" margin: 0;background: linear-gradient(45deg, #7ab1af, #aea7ec);font-family: sans-serif;font-weight: 100; padding-bottom: 40px">
-  <div class="header" style="padding: 30px;
-	  text-align: center;
-	  background: #1abc9c;
-	  color: white;
-	  font-size: 30px;">
-    
-  		<h2> Repository Commit Statistics</h2>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title></title>
+</head>
 
-		  <div class="container" style="display: flex;justify-content: center; ">
-			<div style="padding: 5px;margin: 20px;background-color: #dee2e1;;border-radius: 5px;">
-			  <table style="
-				border-collapse: collapse;
-				box-shadow: 0 0 20px rgba(0,0,0,0.1);">
-				 <!-- <thead style="background-color: #42a386; padding: 10px; height:50px ;">
+@main("Issue Statistics") {
+<head>
+<style>
+a:link {
+  color: black;
+  background-color: transparent;
+}
+a:hover {
+  color: blue;
+ }
+ table tr th{
+ 	text-align: left;
+ }
+ 
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="topbar">
+    <div class="container-fluid" > <a class="navbar-brand" href="#">Gitterrific/Repository Commits</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
+      
+</nav>
+ <div class='repository-details' style="padding-top: 1vh;">
+<div class="row">  
+ 
+<div class="col-sm-8" style="margin-left:0.8vh">
+   
+  		
+			<table class="table table-bordered" style="margin-right: 1vh;margin-top: 3vh">
+			  <tbody>
 					<tr>
-					  <th style="border: 1px solid rgb(211, 211, 211);">Repository</th>
-					  <th  style="border: 1px solid rgb(211, 211, 211);">Owner</th>
-	  
-					</tr>
-				  </thead> -->
-				  <tbody style="background-color: #dee2e1; text-align: center;">
-					<tr style="height: 50px ">
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Maximum no.of additions </td>
-						<td style="background-color: #dee2e1;width: 200px;">@results.maxAdd</td>
+						<th>Maximum no.of additions </th>
+						<td>@results.maxAdd</td>
   
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Minimum no.of additions</td>
-						<td style="background-color: #dee2e1; width: 200px;">@results.minAdd</td>
+						<th>Minimum no.of additions</th>
+						<td>@results.minAdd</td>
 
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Average no.of additions </td>
-						<td style="background-color: #dee2e1;width: 200px;">@results.avgAdd</td>
+						<th>Average no.of additions </th>
+						<td>@results.avgAdd</td>
 					  </tr> 
 
-					  <tr style="height: 50px ">
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Maximum no.of deletions</td>
-						<td style="background-color: #dee2e1;width: 200px;">@results.maxDel</td>
+					  <tr>
+						<th>Maximum no.of deletions</th>
+						<td>@results.maxDel</td>
   
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Minumum no.of deletions</td>
-						<td style="background-color: #dee2e1; width: 200px;">@results.minDel</td>
+						<th>Minumum no.of deletions</th>
+						<td>@results.minDel</td>
 
-						<td style="background-color: rgb(20, 107, 71);color: #dee2e1;width: 200px;">Average no.of deletions</td>
-						<td style="background-color: #dee2e1;width: 200px;">@results.avgDel</td>
+						<th>Average no.of deletions</th>
+						<td>@results.avgDel</td>
 					  </tr> 
 
  
@@ -50,37 +71,38 @@
 			</div>
 
 		</div>
-	 <h5 style="margin-left: 25px;">Showing Top @keys.size() users with highest no.of commits</h5>
-	 
-      <div class="container" style="display: flex;justify-content: center; ">
-      <div style="padding: 0px 40px 40px 40px;margin: 20px;background-color: rgb(211, 211, 211);border-radius: 5px;">
-        <table style="width:800px;
-          border-collapse: collapse;
-          border: 1px solid #ddd;
-          box-shadow: 0 0 20px rgba(0,0,0,0.1);">
-            <thead style="background-color: #42a386; padding: 10px; height:50px ;">
-              <tr>
-                <th style="border: 1px solid rgb(211, 211, 211);">User name</th>
-                <th  style="border: 1px solid rgb(211, 211, 211);">Commits count</th>
-                <th  style="border: 1px solid rgb(211, 211, 211);">User Profile Link</th>
+		<div class="col-sm-1"></div>
+</div>
+</div>
+ <hr>
+<div class="row" style="padding-top:3vh">
+  <div class="col-sm-10">
+    <table class="table">
+  <thead class="table-dark">
+    <tr>
+    <th colspan=3>Showing Top @keys.size() users with highest no.of commits</th>
+  </tr>
+   
+  </thead>
+  <tbody>
+  <tr>
+				<th>User name</th>
+                <th>Commits count</th>
+                <th>User Profile Link</th>
 
               </tr>
-            </thead>
-            <tbody style="background-color: #dee2e1; text-align: center;">
-              
+                       
              @for(key<-keys){
-					<tr style="height: 50px ">									
-						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;">@key</td>
-						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;">@commitData.get(key)</td>
-						<td style="border: 1px solid rgb(104, 207, 164);background-color: #dee2e1; padding: 30px;"><a href='/users/@key'>@key</td>						
+					<tr>	
+						<td>@key</td>
+						<td>@commitData.get(key)</td>
+						<td><a href='/users/@key'>@key</td>						
 					</tr>				
 				}
                
             
             </tbody> 
-          </table>
-        </div>
-         </div>
-	
-		
-</section>
+</div>
+</body>
+}
+</html>

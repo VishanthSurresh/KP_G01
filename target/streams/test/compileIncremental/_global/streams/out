@@ -1,0 +1,29 @@
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] IncrementalCompile -----------[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
+[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 7 products, 7 sources, 4 libraries[0m
+[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/test/models/QuerySearchResultTest.java, ${BASE}/test/models/SearchResultTest.java, ${BASE}/test/models/RepoProfileTest.java, ${BASE}/test/models/TopicsResult.java, ${BASE}/test/models/RepositoryTest.java, ${BASE}/test/models/RepoIssuesTest.java, ${BASE}/test/controllers/HomeControllerTest.java, ${BASE}/test/models/IssueSearchResultTest.java, ${BASE}/test/models/CommitsResultTest.java, ${BASE}/test/models/UserTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(${BASE}/test/models/IssueSearchResultTest.java, ${BASE}/test/models/RepoProfileTest.java, ${BASE}/test/models/QuerySearchResultTest.java), removed = Set(), changed = Set(${BASE}/test/models/UserTest.java, ${BASE}/test/models/CommitsResultTest.java, ${BASE}/test/models/RepositoryTest.java), unmodified = ...),Set(),Set(),API Changes: Set())[0m
+[0m[[0m[0mdebug[0m] [0m[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial source changes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	removed: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	added: Set(${BASE}/test/models/IssueSearchResultTest.java, ${BASE}/test/models/RepoProfileTest.java, ${BASE}/test/models/QuerySearchResultTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0m	modified: Set(${BASE}/test/models/UserTest.java, ${BASE}/test/models/CommitsResultTest.java, ${BASE}/test/models/RepositoryTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInvalidated products: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mExternal API changes: API Changes: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mModified binary dependencies: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial directly invalidated classes: Set(models.UserTest, models.CommitsResultTest, models.RepositoryTest)[0m
+[0m[[0m[0mdebug[0m] [0m[0mSources indirectly invalidated by:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	product: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	binary dep: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0m	external source: Set()[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated classes: Set(models.UserTest, models.CommitsResultTest, models.RepositoryTest)[0m
+[0m[[0m[0mdebug[0m] [0m[0mAll initially invalidated sources:Set(${BASE}/test/models/QuerySearchResultTest.java, ${BASE}/test/models/RepoProfileTest.java, ${BASE}/test/models/RepositoryTest.java, ${BASE}/test/models/IssueSearchResultTest.java, ${BASE}/test/models/CommitsResultTest.java, ${BASE}/test/models/UserTest.java)[0m
+[0m[[0m[0mdebug[0m] [0m[0mInitial set of included nodes: models.UserTest, models.CommitsResultTest, models.RepositoryTest[0m
+[0m[[0m[0mdebug[0m] [0m[0mRecompiling all sources: number of invalidated sources > 50.0% of all sources[0m
+[0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 10 Java sources to C:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\target\scala-2.13\test-classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mAttempting to call com.sun.tools.javac.api.JavacTool@21cf2960 directly...[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava compilation took 2.8189509 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava analysis took 0.2364875 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mJava compilation + analysis took 3.083893 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m

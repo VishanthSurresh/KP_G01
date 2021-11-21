@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CacheManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">CacheManager.java</span></div><h1>CacheManager.java</h1><pre class="source lang-java linenums">package models;
+
+import models.*;
+import play.mvc.*;
+import play.libs.ws.*;
+
+import java.util.List;
+import java.util.HashMap;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import github.GithubHelper;
+
+import java.util.stream.Collectors;
+
+/**
+ * This class is a Singleton class which handles caching of already searched terms
+ * @author Varshini
+ * @author Vishanth
+ * @author Bhavitha
+ * @author Heet Patel
+ * @author Shail Patel
+ */
+@Singleton
+public class CacheManager {
+<span class="nc" id="L26">  private static CacheManager cache = null;</span>
+  private static HashMap&lt;String, QuerySearchResult&gt; results;
+  private static HashMap&lt;String,IssueSearchResult&gt; ownerInfoResults;
+  private static GithubHelper helper;
+  
+  /**
+   * CacheManager private default Constructor. This initializes the CacheManager object only once
+   * @author Varshini
+   * @author Vishanth
+   * @author Bhavitha
+   * @author Heet Patel
+   * @author Shail Patel
+   */
+
+  private CacheManager() {
+  }
+  
+  /**
+   * This will be used to get the cache object
+   * @author Varshini
+   * @author Vishanth
+   * @author Bhavitha
+   * @author Heet Patel
+   * @author Shail Patel
+   * @return The singleton cache object {@link CacheManager}
+   * */
+
+  @Inject
+  public static CacheManager GetCache(WSClient ws){
+<span class="nc bnc" id="L55" title="All 2 branches missed.">    if (cache==null) {</span>
+<span class="nc" id="L56">      cache = new CacheManager();</span>
+<span class="nc" id="L57">      helper = new GithubHelper(ws);</span>
+<span class="nc" id="L58">      results = new HashMap&lt;&gt;();</span>
+    }
+
+<span class="nc" id="L61">    return cache;</span>
+  }
+
+    public QuerySearchResult GetFullSearchResult(String keyTerm){
+<span class="nc" id="L65">      System.out.println(keyTerm);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">      if(!results.containsKey(keyTerm)) AddToCache(keyTerm);</span>
+<span class="nc" id="L67">      return results.get(keyTerm);</span>
+  }
+    
+    /**
+     * This method will return the Trimmed result set for given search term i.e only top 10 results which need to be shown to user. This will first fetch and store the data if it is not already present
+     * @author Varshini
+     * @author Vishanth
+     * @author Bhavitha
+     * @author Heet Patel
+     * @author Shail Patel
+     * @param keyTerm - The search term for which you want to fetch the result
+     * @return The result of type {@link QuerySearchResult} which will contain only 10 results for that search term
+     * */
+
+  public QuerySearchResult GetTrimmedSearchResult(String keyTerm){
+<span class="nc bnc" id="L82" title="All 2 branches missed.">      if(!results.containsKey(keyTerm)) AddToCache(keyTerm);</span>
+
+<span class="nc" id="L84">      var returnData = new QuerySearchResult(keyTerm);</span>
+<span class="nc" id="L85">      returnData.setKeyTermData(results.get(keyTerm).getData().stream().limit(10).collect(Collectors.toList()));</span>
+<span class="nc" id="L86">      return returnData;</span>
+  }
+
+  /**
+   * This method will add search results for a new keyterm to the cache. This will call the PopulateData method of {@link QuerySearchResult}
+   * @author Varshini
+   * @author Vishanth
+   * @author Bhavitha
+   * @author Heet Patel
+   * @author Shail Patel
+   * @param keyTerm - This is the search term for which we need to add the corresponding result to cache
+   * @return {@link SearchResult}
+   * */
+
+  private void AddToCache(String keyTerm){
+<span class="nc" id="L101">      var result = new QuerySearchResult(keyTerm);</span>
+<span class="nc" id="L102">      result.PopulateData(helper);</span>
+<span class="nc" id="L103">      results.put(keyTerm, result);</span>
+<span class="nc" id="L104">  }</span>
+
+  
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

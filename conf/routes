@@ -9,10 +9,10 @@ GET      /topic/:query                controllers.HomeController.topics(query:St
 GET      /issue/:query/:q1             controllers.HomeController.issues(query:String,q1:String)
 GET      /issuestatistics              controllers.HomeController.issuesstat()
 #GET      /user/:id                     controllers.HomeController.searchUser(id: String)
-GET 	/users/:login				              controllers.HomeController.fetchUser(login: String)
+GET 	/users/:login				controllers.HomeController.fetchUser(login: String)
 # GET    /explore                     controllers.HomeController.explore
 # GET    /tutorial                    controllers.HomeController.tutorial
-
+#GET     /search/repository/:name    controllers.HomeController.Name(name: String)
 GET		/repos/:owner/:repo/commits		controllers.HomeController.commits(owner: String, repo: String)
 
 
