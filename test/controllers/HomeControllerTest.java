@@ -1,13 +1,14 @@
 package controllers;
 
-import org.junit.Test;
+import org.junit.*;
+import play.test.Helpers;
 import play.Application;
 import play.inject.guice.GuiceApplicationBuilder;
 import play.mvc.Http;
 import play.mvc.Result;
 import play.test.WithApplication;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static play.mvc.Http.Status.OK;
 import static play.test.Helpers.GET;
 import static play.test.Helpers.route;
@@ -139,5 +140,78 @@ public class HomeControllerTest extends WithApplication {
         assertEquals("text/html", result10.contentType().get());
         assertEquals("utf-8", result10.charset().get());
     }
+    
+    @Test
+    public void testCommits() {
+        Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET)
+                .uri("/repos/VishanthSurresh/Amazon_ML_Contest/commits");
+        Result result = Helpers.route(app, request);
+        assertEquals(Http.Status.OK, result.status());
+        String html = Helpers.contentAsString(result);
+        assertTrue(html.contains("<td>10739</td>"));
+        assertTrue(html.contains("<td><a href='/users/VishanthSurresh'>VishanthSurresh</td>"));
+    }
+    @Test
+    public void testEmptyHomePage() {
+        Http.RequestBuilder request = new Http.RequestBuilder()
+                .method(Helpers.GET)
+                .uri("/");
+        Result result = Helpers.route(app, request);
+        assertEquals(Http.Status.OK, result.status());
+    }
+    
+    @Test
+    public void testSearchWithoutInput() {
+        Http.RequestBuilder searchRequest = new Http.RequestBuilder()
+                .method(Helpers.POST)
+                .uri("/#");
+        Result result = Helpers.route(app, searchRequest);
+        // Without input, we just redirect to the index page
+        assertEquals(Http.Status.NOT_FOUND, result.status());
+    }
+  
 
+    @Test
+    public void testSearchWithInput() {
+    	 Http.RequestBuilder request1= new Http.RequestBuilder()
+    	            .method(GET)
+    	            .uri("/?query='zoo'");
+    	    Result result1 = route(app, request1);
+        assertEquals(Http.Status.OK, result1.status());
+
+        Http.RequestBuilder request = new Http.RequestBuilder()
+                .method(Helpers.GET)
+                .uri("/");
+        Result result = Helpers.route(app, request);
+        assertEquals(Http.Status.OK, result.status());
+
+        String html = Helpers.contentAsString(result);
+    }
+    
+    @Test
+    public void testRepoDetail() {
+    	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/issue/apache/zookeeper");
+    	Result result = Helpers.route(app, request);
+    	assertEquals(Http.Status.OK,result.status());
+    	String html = Helpers.contentAsString(result);
+    	assertTrue(html.contains("<td>zookeeper</td>"));
+    }
+    @Test
+    public void testUser1() {
+    	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/users/apache");
+    	Result result = Helpers.route(app, request);
+    	assertEquals(Http.Status.OK,result.status());
+    	String html = Helpers.contentAsString(result);
+    	assertTrue(html.contains("<td>apache</td>"));
+    	assertTrue(html.contains("<a href=\"/issue/apache/accumulo\">accumulo</a>"));
+    }
+   @Test
+    public void testIssueStatistics() {
+    	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/issue/apache/zookeeper");
+    	Result result = Helpers.route(app, request);
+    	Http.RequestBuilder request1 = new Http.RequestBuilder().method(Helpers.GET).uri("/issuestatistics");
+    	Result result1 = Helpers.route(app, request1);
+    	assertEquals(Http.Status.OK,result1.status());
+    }
+    
 }
