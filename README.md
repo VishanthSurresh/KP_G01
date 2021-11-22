@@ -2,7 +2,6 @@
 
 ![read](https://user-images.githubusercontent.com/35566310/142740237-d53da630-dc37-478a-bcc5-23cee595d510.jpg)
 
-
 #### Introduction
 
 Gitterrific is a web application that analyzes the contents on GitHub using REST API. A simple web interface is developed that takes a string with one or multiple search keywords and then displays the Author name, latest repositories and Topics matching the keyword(s) below the search. The user can enter new search terms on the output page, which will result in 10 more results being displayed (i.e., a second search will add 10 more results above the 10 results from the first search. We have implemented this using Java 8 Streams.
@@ -78,20 +77,20 @@ sbt jacoco
 Sample report is showned below:
 
 ********************
-[info] Passed: Total 26, Failed 0, Errors 0, Passed 26
+[info] Passed: Total 34, Failed 0, Errors 0, Passed 34
 [info]
 [info] ------- Jacoco Coverage Report -------
 [info]
-[info] Lines: 50.4% (>= required 0.0%) covered, 368 of 742 missed, OK
-[info] Instructions: 42.48% (>= required 0.0%) covered, 3870 of 6728 missed, OK
-[info] Branches: 27.27% (>= required 0.0%) covered, 128 of 176 missed, OK
-[info] Methods: 31.93% (>= required 0.0%) covered, 275 of 404 missed, OK
-[info] Complexity: 27.44% (>= required 0.0%) covered, 357 of 492 missed, OK
-[info] Class: 69.23% (>= required 0.0%) covered, 12 of 39 missed, OK
+[info] Lines: 79.7% (>= required 0.0%) covered, 151 of 744 missed, OK
+[info] Instructions: 73.42% (>= required 0.0%) covered, 1789 of 6731 missed, OK
+[info] Branches: 44.32% (>= required 0.0%) covered, 98 of 176 missed, OK
+[info] Methods: 45.43% (>= required 0.0%) covered, 221 of 405 missed, OK
+[info] Complexity: 40.77% (>= required 0.0%) covered, 292 of 493 missed, OK
+[info] Class: 89.74% (>= required 0.0%) covered, 4 of 39 missed, OK
 [info]
 [info] Check C:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\target\scala-2.13\jacoco\report for detailed report
 [info]
-[success] Total time: 39 s, completed 21-Nov-2021, 6:04:58 PM
+[success] Total time: 15 s, completed Nov. 20, 2021, 11:40:56 a.m.
 ********************
 
 The report directory (see above) contains the detailed HTML report in the familiar JaCoCo format.
