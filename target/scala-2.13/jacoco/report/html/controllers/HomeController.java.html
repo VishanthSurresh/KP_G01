@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>HomeController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">HomeController.java</span></div><h1>HomeController.java</h1><pre class="source lang-java linenums">package controllers;
+import models.*;
+import actors.TopicDataActor;
+import actors.RepoProfileActor;
+import actors.RepoProfileActor.RepoInfo;
+import actors.TopicDataActor.TopicDetails;
+import actors.IssueStatActor;
+import actors.IssueStatActor.IssueStatInfo;
+import play.mvc.*;
+import scala.compat.java8.FutureConverters;
+import services.Commitservices;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import com.fasterxml.jackson.databind.JsonNode;
+import javax.inject.Inject;
+import github.GithubHelper;
+import java.io.IOException;
+import play.api.libs.json.Json;
+import play.libs.ws.*;
+import akka.actor.*;
+import akka.stream.Materializer;
+import actors.CommitsActor;
+import actors.CommitsActor.CommitInfo;
+import actors.SearchResultActor;
+import actors.UserActor;
+import actors.UserActor.UserInfo;
+import services.Userservices;
+import actors.SearchResultActor.SearchResultInfo;
+import actors.Searchsupervisor;
+import play.libs.streams.ActorFlow;
+import static akka.pattern.Patterns.ask;
+
+// TODO: Auto-generated Javadoc
+/**
+ * This controller contains an action to handle HTTP requests
+ * to the application's home page.
+ */
+public class HomeController extends Controller implements WSBodyReadables, WSBodyWritables {
+    
+    /** The ws. */
+	@Inject
+    private WSClient ws;
+	@Inject
+	private ActorSystem actorSystem;
+	@Inject
+	private Materializer materializer;
+	
+
+	
+	ActorRef commitsActor;
+	ActorRef topicDataActor;
+    ActorRef repoActor;
+    ActorRef issueStatActor;
+    ActorRef searchResultActor;
+    ActorRef userActor;
+    
+    /** The github. */
+    private final GithubHelper github;
+    
+    /** The issue search result. */
+    private final IssueSearchResult issueSearchResult;
+    
+    private final Userservices userservices;
+    /** The topic service. */
+    //private final TopicService topicService;
+    
+    /** The user. */
+    User user;
+    
+    /** The full commits result. */
+    JsonNode fullCommitsResult;
+    
+    /** The max add list. */
+<span class="fc" id="L79">    List&lt;Integer&gt; maxAddList = new ArrayList&lt;&gt;();</span>
+    
+    /** The max del list. */
+<span class="fc" id="L82">    List&lt;Integer&gt; maxDelList = new ArrayList&lt;&gt;();</span>
+    
+    /** The cr. */
+    CommitsResult cr;
+    Userservices usvc;
+    //Cache
+    CacheManager cm;
+    
+<span class="fc" id="L90">    List&lt;QuerySearchResult&gt; ex = new ArrayList&lt;&gt;();</span>
+    
+<span class="fc" id="L92">    public Map&lt;String,Integer&gt; result = new LinkedHashMap&lt;&gt;();</span>
+    
+<span class="fc" id="L94">    @Inject Commitservices commit = new Commitservices(ws);</span>
+    private final TopicService topic;
+    
+    /**
+     * Instantiates a new home controller.
+     * @param ws the ws
+     * @param github the github
+     */
+    @Inject
+<span class="fc" id="L103">    public HomeController(WSClient ws,GithubHelper github, ActorSystem system) {</span>
+<span class="fc" id="L104">        this.ws = ws;</span>
+<span class="fc" id="L105">        this.github = github;</span>
+<span class="fc" id="L106">        this.issueSearchResult =  new IssueSearchResult(github);</span>
+<span class="fc" id="L107">        this.userservices  = new Userservices(github); </span>
+<span class="fc" id="L108">        this.topic = new TopicService(github);</span>
+<span class="fc" id="L109">        commitsActor = system.actorOf(CommitsActor.getProps(commit));</span>
+<span class="fc" id="L110">        topicDataActor=system.actorOf(TopicDataActor.getProps(topic));</span>
+<span class="fc" id="L111">        repoActor=system.actorOf(RepoProfileActor.getProps(issueSearchResult));</span>
+<span class="fc" id="L112">        userActor=system.actorOf(UserActor.getProps(userservices));</span>
+<span class="fc" id="L113">        issueStatActor = system.actorOf(IssueStatActor.getProps(issueSearchResult));</span>
+<span class="fc" id="L114">        cm = new CacheManager(ws);</span>
+<span class="fc" id="L115">        searchResultActor = system.actorOf(SearchResultActor.getProps(), &quot;searchResultActor&quot;);</span>
+<span class="fc" id="L116">    }</span>
+    
+    public WebSocket ws(){
+<span class="nc" id="L119">		 System.out.println(&quot;Inside Websocket!!-----&gt; &quot;);</span>
+<span class="nc" id="L120">	        return WebSocket.Json.accept(request -&gt; ActorFlow.actorRef(Searchsupervisor::props, actorSystem, materializer));</span>
+	    }
+    /**
+     * An action that renders an HTML page. The configuration in the &lt;code&gt;routes&lt;/code&gt; file means that
+     * this method will be called when the application receives a
+     * &lt;code&gt;GET&lt;/code&gt; request with a path of &lt;code&gt;/&lt;/code&gt;.
+     * @param request the request
+     * @return the result
+     */
+     
+    @SuppressWarnings(&quot;unchecked&quot;)
+	public CompletionStage&lt;Result&gt; index(Http.Request request) {
+
+<span class="fc" id="L133">    	return FutureConverters</span>
+<span class="fc" id="L134">				.toJava(ask(searchResultActor, new SearchResultInfo(request,cm), 10000))</span>
+<span class="fc" id="L135">				.thenApply(res -&gt;{</span>
+<span class="fc" id="L136">					ex = (List&lt;QuerySearchResult&gt;)res;</span>
+<span class="fc" id="L137">					return ok(views.html.index.render(ex,request));</span>
+				});
+				
+    }
+    
+    /**
+     * This function returns the values for search result from Github API.
+     * @param query the query
+     * @param request the request
+     * @return the result
+     */
+    
+    public Result search(String query, Http.Request request) {
+<span class="nc" id="L150">        var currentSession = request.session().get(&quot;searchedTerms&quot;).orElse(&quot;&quot;);</span>
+<span class="nc" id="L151">        currentSession += &quot;,&quot; + query;</span>
+<span class="nc" id="L152">        return redirect(&quot;/&quot;)</span>
+<span class="nc" id="L153">            .addingToSession(request, &quot;searchedTerms&quot;, currentSession);</span>
+    }
+
+    /**
+     * This method fetches the repository issues from IssueSearchResult.java and RepoIssues.java
+     * @author Shail
+     * @param user the user
+     * @param repo the repo
+     * @return the completion stage
+     */
+
+    public CompletionStage&lt;Result&gt; issues(String user, String repo){
+<span class="fc" id="L165">    	return FutureConverters.toJava(ask(repoActor, new RepoInfo(user+&quot;/&quot;+repo, issueSearchResult), 1000000))</span>
+<span class="fc" id="L166">				.thenApplyAsync(response -&gt; {</span>
+<span class="fc" id="L167">					List&lt;String&gt; issues = (List&lt;String&gt;)response;</span>
+<span class="fc" id="L168">					return ok(views.html.repositoryprofile.render(issues,user.toString(),issueSearchResult.getData(), issueSearchResult.getRepoName()));</span>
+				});
+    }
+    
+	/**
+     * This method fetches the user details from User.java and Userservices.java
+     * @author Bhavitha
+     * @param owner
+     * @return the completion stage
+     */
+	 
+    public CompletionStage&lt;Result&gt; userDetails(String owner){
+<span class="nc" id="L180">    	return FutureConverters.toJava(ask(userActor, new UserInfo(owner,userservices), 10000)).thenApplyAsync(response -&gt; {</span>
+<span class="nc" id="L181">					User userDet = (User)response;</span>
+<span class="nc" id="L182">					return ok(views.html.Userinfo.render(userDet,userservices.getDet()));</span>
+		}); 
+    }
+    
+    /**
+     * This method fetches the Issue Statics results from IssueSearchResult.java
+     *
+     * @author Varshini
+     * @return the completion stage
+     */
+    
+    
+    public CompletionStage&lt;Result&gt; issuesstat(){
+<span class="fc" id="L195">    	return FutureConverters.toJava(ask(issueStatActor, new IssueStatInfo(issueSearchResult), 1000000))</span>
+<span class="fc" id="L196">				.thenApplyAsync(response -&gt; {</span>
+<span class="fc" id="L197">					Map&lt;String, Integer&gt; issues = (Map&lt;String, Integer&gt;)response;</span>
+<span class="fc" id="L198">					return ok(views.html.issuestatistics.render(issues));</span>
+				});
+    }
+    
+    /**
+     * This method fetches the top 10 topics from Topics and TopicService.java
+     *
+     * @author Heet Patel
+     * @param repo the repo
+     * @return the completion stage
+     */
+    
+    public CompletionStage&lt;Result&gt; topics(String repo){
+<span class="fc" id="L211">    	return FutureConverters.toJava(ask(topicDataActor, new TopicDetails(repo,topic), 10000)).thenApplyAsync(response -&gt; {</span>
+<span class="fc" id="L212">			List&lt;String&gt; topicsList = (List&lt;String&gt;)response;</span>
+<span class="fc" id="L213">            return ok(views.html.topic.render(topicsList));</span>
+});
+    }
+    
+        /**
+		 * This part of code returns the Top 10 Commiters data for Repository Commits
+		 * @author Vishanth
+		 */
+        
+        public CompletionStage&lt;Result&gt; commits(String user, String repo) throws Exception{
+<span class="fc" id="L223">        	List&lt;String&gt; commitKeysList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L224">        	return FutureConverters.toJava(ask(commitsActor, new CommitInfo(user, repo, commit), 1000000))</span>
+<span class="fc" id="L225">    				.thenApplyAsync(response -&gt; {</span>
+<span class="fc" id="L226">    					List&lt;CommitsResult&gt; topCommiters = (List&lt;CommitsResult&gt;)response;</span>
+<span class="fc" id="L227">    					List&lt;CommitsResult&gt; topTen = topCommiters.parallelStream()</span>
+<span class="fc" id="L228">    							.map(c -&gt; new CommitsResult(c.get_user_name(), c.get_additions(), c.get_deletions()))</span>
+<span class="fc" id="L229">    							.collect(Collectors.toList());</span>
+<span class="fc" id="L230">    					result = topTen.parallelStream()</span>
+<span class="fc" id="L231">    							.collect(Collectors.toMap(w -&gt; w.get_user_name(), w -&gt; 1, Integer::sum));</span>
+<span class="fc" id="L232">    					result = result.entrySet().stream()</span>
+<span class="fc" id="L233">    							.sorted((Map.Entry.&lt;String, Integer&gt;comparingByValue().reversed())).limit(10)</span>
+<span class="pc" id="L234">    							.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -&gt; e1,</span>
+    									LinkedHashMap::new));
+<span class="fc" id="L236">    					Iterator&lt;String&gt; iterator = result.keySet().iterator();</span>
+<span class="fc bfc" id="L237" title="All 2 branches covered.">    					while (iterator.hasNext()) {</span>
+<span class="fc" id="L238">    						Object commitKey = iterator.next();</span>
+<span class="fc" id="L239">    						commitKeysList.add((String) commitKey);</span>
+<span class="fc" id="L240">    					}</span>
+<span class="fc" id="L241">    					int size = topCommiters.size();</span>
+<span class="fc" id="L242">    					System.out.println(&quot;LAST VALUE: &quot; + topCommiters.get(size - 1));</span>
+<span class="fc" id="L243">    					return ok(views.html.commits.render(topCommiters.get(size - 1), commitKeysList, result));</span>
+    				});
+     
+    }
+        
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

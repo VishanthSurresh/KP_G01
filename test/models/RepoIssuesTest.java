@@ -23,4 +23,12 @@ public class RepoIssuesTest {
         rt.setTitle("wooo");
         assertTrue(rt.getTitle()=="wooo");
     }
+   @Test
+    public void repoissues()
+    {
+    	String issues="vishanth";
+    	RepoIssues ex = new RepoIssues(issues);
+    	assertNotNull(ex);
+    	
+    }
 }

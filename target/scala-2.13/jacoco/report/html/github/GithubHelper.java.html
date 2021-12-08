@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GithubHelper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">github</a> &gt; <span class="el_source">GithubHelper.java</span></div><h1>GithubHelper.java</h1><pre class="source lang-java linenums">package github;
+
+import models.*;
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import play.mvc.*;
+import play.api.libs.json.Json;
+import play.libs.ws.*;
+import play.api.Application;
+import java.util.concurrent.CompletionStage;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+
+// import com.fasterxml.jackson.databind.JsonNode;
+
+public class GithubHelper {
+  private final WSClient ws;
+
+<span class="fc" id="L25">  private static String endpoint = &quot;https://api.github.com/search/repositories&quot;;</span>
+<span class="fc" id="L26">  private static String endpointRepo = &quot;https://api.github.com/repos/&quot;;</span>
+<span class="fc" id="L27">  private static String endpointIssues = &quot;https://api.github.com/repos/REPO_NAME/issues&quot;;</span>
+<span class="fc" id="L28">  private static String endpointUserRep = &quot;https://api.github.com/users/&quot;;</span>
+
+  @Inject
+<span class="fc" id="L31">  public GithubHelper(WSClient ws) {</span>
+<span class="fc" id="L32">    this.ws = ws;</span>
+<span class="fc" id="L33">  }</span>
+
+  /**
+   * This method returns the search result from Github API
+   * @param query
+   * @return
+   */
+  public WSRequest getSearchResult(String query) {
+<span class="nc" id="L41">  	System.out.println(&quot;query --&quot; + query);</span>
+
+<span class="nc" id="L43">    WSRequest req = ws.url(endpoint);</span>
+<span class="nc" id="L44">    req.addQueryParameter(&quot;q&quot;, query);</span>
+<span class="nc" id="L45">     System.out.println(&quot;Request Object: &quot;+req);</span>
+<span class="nc" id="L46">    return req;</span>
+  }
+
+  /**
+   * This method returns the details about Repository
+   * @param query
+   * @return
+   */
+  
+  public WSRequest getRepoResult(String query) {
+<span class="fc" id="L56">	  System.out.println(&quot;query --&quot; + query);</span>
+	  
+<span class="fc" id="L58">	  WSRequest req = ws.url(endpointRepo+query);</span>
+<span class="fc" id="L59">	  System.out.println(&quot;Request Object: &quot;+req);</span>
+<span class="fc" id="L60">	  return req;</span>
+  }
+  
+  /**
+   * This method returns the repository details from Github API
+   * @author Bhavitha
+   */
+  public WSRequest getRepoDet(String query) {
+	  //System.out.println(&quot;repoooooooooooquery --&quot; + query);
+	  //System.out.println(&quot;URL !!!!!  &gt;&gt;&gt;&gt;&gt;&gt;&gt;: &quot;+endpointUserRep+query+&quot;/repos&quot;);
+<span class="nc" id="L70">	  WSRequest req = ws.url(endpointUserRep+query+&quot;/repos&quot;);</span>
+<span class="nc" id="L71">	  System.out.println(&quot;Request Object: &quot;+req);</span>
+<span class="nc" id="L72">	  return req;</span>
+  }
+  
+  public WSRequest getUser(String query) {
+<span class="nc" id="L76">	  System.out.println(&quot;repoooooooooooquery --&quot; + query);</span>
+	  
+<span class="nc" id="L78">	  WSRequest req = ws.url(endpointUserRep+query);</span>
+   // req.addHeader(&quot;Authorization&quot;, &quot;token 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&quot;);
+<span class="nc" id="L80">	  System.out.println(&quot;Request Object: &quot;+req);</span>
+<span class="nc" id="L81">	  return req;</span>
+  }
+
+  /**
+   * This method returns the issues from Github API
+   * @author Varshini
+   * @param repo
+   * @return
+   */
+  
+  public CompletionStage&lt;List&lt;RepoIssues&gt;&gt; getIssues(String repo) {
+	// TODO Auto-generated method stub
+<span class="fc" id="L93">	WSRequest request = ws.url(&quot;https://api.github.com/repos&quot;+ &quot;/&quot; + repo + &quot;/issues&quot;);</span>
+<span class="fc" id="L94">	ObjectMapper objectMapper = new ObjectMapper();</span>
+
+<span class="fc" id="L96">	return request.addHeader(&quot;Accept&quot;, &quot;application/vnd.github.v3+json&quot;).get().thenApply(r -&gt; {</span>
+<span class="fc" id="L97">		List&lt;RepoIssues&gt; issues = null;</span>
+		try {
+<span class="fc" id="L99">			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="fc" id="L100">			issues = objectMapper.readValue(r.asJson().toPrettyString(), new TypeReference&lt;List&lt;RepoIssues&gt;&gt;() {</span>
+			});
+
+<span class="nc" id="L103">		} catch (Exception e) {</span>
+<span class="nc" id="L104">			return null;</span>
+<span class="fc" id="L105">		}</span>
+<span class="fc" id="L106">		return issues;</span>
+	});
+}
+  
+  /**
+   * This method returns the Topics from Github API
+   * @author Heet Patel
+   * @param repo
+   * @return
+   */
+  
+public CompletionStage&lt;List&lt;Topics&gt;&gt; getTopic(String repo) {
+	// TODO Auto-generated method stub
+<span class="fc" id="L119">	WSRequest request = ws.url(endpoint);</span>
+<span class="fc" id="L120">	ObjectMapper objectMapper = new ObjectMapper();</span>
+<span class="fc" id="L121">	request.addQueryParameter(&quot;q&quot;, repo);</span>
+<span class="fc" id="L122">	return request.addHeader(&quot;Accept&quot;, &quot;application/vnd.github.v3+json&quot;).get().thenApply(r -&gt; {</span>
+<span class="fc" id="L123">		List&lt;Topics&gt; issues = null;</span>
+		try {
+<span class="fc" id="L125">			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="fc" id="L126">			issues = objectMapper.readValue(r.asJson().get(&quot;items&quot;).toString(), new TypeReference&lt;List&lt;Topics&gt;&gt;() {</span>
+			});
+			
+<span class="nc" id="L129">		} catch (Exception e) {</span>
+<span class="nc" id="L130">			return null;</span>
+<span class="fc" id="L131">		}</span>
+<span class="fc" id="L132">		return issues;</span>
+	});
+}
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

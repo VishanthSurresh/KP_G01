@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IssueStatActor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">actors</a> &gt; <span class="el_source">IssueStatActor.java</span></div><h1>IssueStatActor.java</h1><pre class="source lang-java linenums">package actors;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.*;
+
+import javax.inject.Inject;
+
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import models.CommitsResult;
+import models.IssueSearchResult;
+import models.RepoProfile;
+import play.libs.ws.WSClient;
+
+/**
+ * This class acts as Actor for Repository Issues Statistics Page
+ * @author Varshini
+ */
+public class IssueStatActor extends AbstractActor{
+	
+	static public class IssueStatInfo{
+		IssueSearchResult cService;
+<span class="fc" id="L25">		public IssueStatInfo(IssueSearchResult cService) {</span>
+<span class="fc" id="L26">			this.cService = cService;</span>
+<span class="fc" id="L27">		}</span>
+	}
+	
+	private final IssueSearchResult issueService;
+	
+	@Inject
+<span class="fc" id="L33">	public IssueStatActor(IssueSearchResult issueService) {</span>
+<span class="fc" id="L34">		this.issueService = issueService;</span>
+<span class="fc" id="L35">	}</span>
+	
+	public static Props getProps(IssueSearchResult cs) {
+<span class="fc" id="L38">		return Props.create(IssueStatActor.class, () -&gt; new IssueStatActor(cs));</span>
+	}
+
+	@Override
+	public Receive createReceive() {
+		// TODO Auto-generated method stub
+<span class="fc" id="L44">		return receiveBuilder()</span>
+<span class="fc" id="L45">				.match(IssueStatInfo.class, this::sendCommitsData)</span>
+<span class="fc" id="L46">				.build();</span>
+	}
+	
+	private void sendCommitsData(IssueStatInfo cInfo) {
+		try {
+<span class="fc" id="L51">			CompletionStage&lt;Map&lt;String, Integer&gt;&gt; cData = cInfo.cService.getIssueStatisticss();</span>
+<span class="fc" id="L52">			System.out.println(&quot;Output from Issue Statistics ACTOR!!---------&gt; &quot; + cData.toCompletableFuture().get());</span>
+<span class="fc" id="L53">			sender().tell(cData.toCompletableFuture().get(), self());</span>
+		}
+<span class="nc" id="L55">		catch(Exception e) {</span>
+<span class="nc" id="L56">			sender().tell(new HashMap&lt;String, Integer&gt;(), self());</span>
+<span class="fc" id="L57">		}</span>
+
+<span class="fc" id="L59">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

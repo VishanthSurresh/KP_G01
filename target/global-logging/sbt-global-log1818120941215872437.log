@@ -1,0 +1,10 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(44ab3984-001b-4908-a44f-253bf077e7ed), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 13 Java sources to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\test-classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mInstrumenting 61 classes to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\instrumented-classes[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 35, Failed 0, Errors 0, Passed 35[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 27 s, completed 06-Dec-2021, 8:04:46 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>commits.template.scala</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">views.html</a> &gt; <span class="el_source">commits.template.scala</span></div><h1>commits.template.scala</h1><pre class="source lang-java linenums">
+package views.html
+
+import _root_.play.twirl.api.TwirlFeatureImports._
+import _root_.play.twirl.api.TwirlHelperImports._
+import _root_.play.twirl.api.Html
+import _root_.play.twirl.api.JavaScript
+import _root_.play.twirl.api.Txt
+import _root_.play.twirl.api.Xml
+import models._
+import controllers._
+import play.api.i18n._
+import views.html._
+import play.api.templates.PlayMagic._
+import java.lang._
+import java.util._
+import play.core.j.PlayMagicForJava._
+import play.mvc._
+import play.api.data.Field
+import play.data._
+import play.core.j.PlayFormsMagicForJava._
+import scala.jdk.CollectionConverters._
+
+<span class="pc" id="L24">object commits extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[models.CommitsResult,List[String],Map[String, Integer],play.twirl.api.HtmlFormat.Appendable] {</span>
+
+  /**/
+  def apply/*1.2*/(results: models.CommitsResult, keys: List[String], commitData: Map[String, Integer]):play.twirl.api.HtmlFormat.Appendable = {
+<span class="fc" id="L28">    _display_ {</span>
+      {
+
+
+<span class="fc" id="L32">Seq[Any](format.raw/*1.87*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L33">&quot;&quot;&quot;),format.raw/*2.1*/(&quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span>
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link href=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; integrity=&quot;sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC&quot; crossorigin=&quot;anonymous&quot;&gt;
+  &lt;!-- jQuery library --&gt;
+  &lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+  &lt;!-- Latest compiled JavaScript --&gt;
+  &lt;script src=&quot;https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+<span class="fc" id="L47">&quot;&quot;&quot;),_display_(/*16.2*/main(&quot;Issue Statistics&quot;)/*16.26*/ {_display_(Seq[Any](format.raw/*16.28*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L48">&quot;&quot;&quot;),format.raw/*17.1*/(&quot;&quot;&quot;&lt;head&gt;</span>
+&lt;style&gt;
+<span class="fc" id="L50">a:link &quot;&quot;&quot;),format.raw/*19.8*/(&quot;&quot;&quot;{&quot;&quot;&quot;),format.raw/*19.9*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L51">  &quot;&quot;&quot;),format.raw/*20.3*/(&quot;&quot;&quot;color: black;</span>
+  background-color: transparent;
+<span class="fc" id="L53">&quot;&quot;&quot;),format.raw/*22.1*/(&quot;&quot;&quot;}&quot;&quot;&quot;),format.raw/*22.2*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L54">&quot;&quot;&quot;),format.raw/*23.1*/(&quot;&quot;&quot;a:hover &quot;&quot;&quot;),format.raw/*23.9*/(&quot;&quot;&quot;{&quot;&quot;&quot;),format.raw/*23.10*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L55">  &quot;&quot;&quot;),format.raw/*24.3*/(&quot;&quot;&quot;color: blue;</span>
+<span class="fc" id="L56"> &quot;&quot;&quot;),format.raw/*25.2*/(&quot;&quot;&quot;}&quot;&quot;&quot;),format.raw/*25.3*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L57"> &quot;&quot;&quot;),format.raw/*26.2*/(&quot;&quot;&quot;table tr th&quot;&quot;&quot;),format.raw/*26.13*/(&quot;&quot;&quot;{&quot;&quot;&quot;),format.raw/*26.14*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L58"> 	&quot;&quot;&quot;),format.raw/*27.3*/(&quot;&quot;&quot;text-align: left;</span>
+<span class="fc" id="L59"> &quot;&quot;&quot;),format.raw/*28.2*/(&quot;&quot;&quot;}&quot;&quot;&quot;),format.raw/*28.3*/(&quot;&quot;&quot;</span>
+ 
+<span class="fc" id="L61">&quot;&quot;&quot;),format.raw/*30.1*/(&quot;&quot;&quot;&lt;/style&gt;</span>
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;nav class=&quot;navbar navbar-expand-lg navbar-dark bg-dark&quot; id=&quot;topbar&quot;&gt;
+    &lt;div class=&quot;container-fluid&quot; &gt; &lt;a class=&quot;navbar-brand&quot; href=&quot;#&quot;&gt;Gitterrific/Repository Commits&lt;/a&gt; &lt;button class=&quot;navbar-toggler&quot; type=&quot;button&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#navbarSupportedContent&quot; aria-controls=&quot;navbarSupportedContent&quot; aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot;&gt; &lt;span class=&quot;navbar-toggler-icon&quot;&gt;&lt;/span&gt; &lt;/button&gt;
+      
+&lt;/nav&gt;
+ &lt;div class='repository-details' style=&quot;padding-top: 1vh;&quot;&gt;
+&lt;div class=&quot;row&quot;&gt;  
+ 
+&lt;div class=&quot;col-sm-8&quot; style=&quot;margin-left:0.8vh&quot;&gt;
+   
+  		
+			&lt;table class=&quot;table table-bordered&quot; style=&quot;margin-right: 1vh;margin-top: 3vh&quot;&gt;
+			  &lt;tbody&gt;
+					&lt;tr&gt;
+						&lt;th&gt;Maximum no.of additions &lt;/th&gt;
+<span class="fc" id="L79">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*48.12*/results/*48.19*/.max_addition),format.raw/*48.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+  
+						&lt;th&gt;Minimum no.of additions&lt;/th&gt;
+<span class="fc" id="L82">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*51.12*/results/*51.19*/.min_addition),format.raw/*51.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+
+						&lt;th&gt;Average no.of additions &lt;/th&gt;
+<span class="fc" id="L85">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*54.12*/results/*54.19*/.avg_addition),format.raw/*54.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+					  &lt;/tr&gt; 
+
+					  &lt;tr&gt;
+						&lt;th&gt;Maximum no.of deletions&lt;/th&gt;
+<span class="fc" id="L90">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*59.12*/results/*59.19*/.max_deletion),format.raw/*59.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+  
+						&lt;th&gt;Minumum no.of deletions&lt;/th&gt;
+<span class="fc" id="L93">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*62.12*/results/*62.19*/.min_deletion),format.raw/*62.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+
+						&lt;th&gt;Average no.of deletions&lt;/th&gt;
+<span class="fc" id="L96">						&lt;td&gt;&quot;&quot;&quot;),_display_(/*65.12*/results/*65.19*/.avg_deletion),format.raw/*65.32*/(&quot;&quot;&quot;&lt;/td&gt;</span>
+					  &lt;/tr&gt; 
+
+ 
+				  &lt;/tbody&gt; 
+				&lt;/table&gt;
+			&lt;/div&gt;
+
+		&lt;/div&gt;
+		&lt;div class=&quot;col-sm-1&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+ &lt;hr&gt;
+&lt;div class=&quot;row&quot; style=&quot;padding-top:3vh&quot;&gt;
+  &lt;div class=&quot;col-sm-10&quot;&gt;
+    &lt;table class=&quot;table&quot;&gt;
+  &lt;thead class=&quot;table-dark&quot;&gt;
+    &lt;tr&gt;
+<span class="fc" id="L114">    &lt;th colspan=3&gt;Showing Top &quot;&quot;&quot;),_display_(/*83.32*/keys/*83.36*/.size()),format.raw/*83.43*/(&quot;&quot;&quot; &quot;&quot;&quot;),format.raw/*83.44*/(&quot;&quot;&quot;users with highest no.of commits&lt;/th&gt;</span>
+  &lt;/tr&gt;
+   
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+  &lt;tr&gt;
+				&lt;th&gt;User name&lt;/th&gt;
+                &lt;th&gt;Commits count&lt;/th&gt;
+                &lt;th&gt;User Profile Link&lt;/th&gt;
+
+              &lt;/tr&gt;
+                       
+<span class="fc" id="L126">             &quot;&quot;&quot;),_display_(/*95.15*/for(key&lt;-keys) yield /*95.29*/{_display_(Seq[Any](format.raw/*95.30*/(&quot;&quot;&quot;</span>
+					&quot;&quot;&quot;),format.raw/*96.6*/(&quot;&quot;&quot;&lt;tr&gt;	
+						&lt;td&gt;&quot;&quot;&quot;),_display_(/*97.12*/key),format.raw/*97.15*/(&quot;&quot;&quot;&lt;/td&gt;
+						&lt;td&gt;&quot;&quot;&quot;),_display_(/*98.12*/commitData/*98.22*/.get(key)),format.raw/*98.31*/(&quot;&quot;&quot;&lt;/td&gt;
+						&lt;td&gt;&lt;a href='/users/&quot;&quot;&quot;),_display_(/*99.28*/key),format.raw/*99.31*/(&quot;&quot;&quot;'&gt;&quot;&quot;&quot;),_display_(/*99.34*/key),format.raw/*99.37*/(&quot;&quot;&quot;&lt;/td&gt;						
+					&lt;/tr&gt;				
+<span class="fc" id="L132">				&quot;&quot;&quot;)))}),format.raw/*101.6*/(&quot;&quot;&quot;</span>
+               
+            
+<span class="fc" id="L135">            &quot;&quot;&quot;),format.raw/*104.13*/(&quot;&quot;&quot;&lt;/tbody&gt; </span>
+&lt;/div&gt;
+&lt;/body&gt;
+<span class="fc" id="L138">&quot;&quot;&quot;)))}),format.raw/*107.2*/(&quot;&quot;&quot;</span>
+<span class="fc" id="L139">&quot;&quot;&quot;),format.raw/*108.1*/(&quot;&quot;&quot;&lt;/html&gt;&quot;&quot;&quot;))</span>
+      }
+    }
+  }
+
+<span class="fc" id="L144">  def render(results:models.CommitsResult,keys:List[String],commitData:Map[String, Integer]): play.twirl.api.HtmlFormat.Appendable = apply(results,keys,commitData)</span>
+
+<span class="nc" id="L146">  def f:((models.CommitsResult,List[String],Map[String, Integer]) =&gt; play.twirl.api.HtmlFormat.Appendable) = (results,keys,commitData) =&gt; apply(results,keys,commitData)</span>
+
+<span class="nc" id="L148">  def ref: this.type = this</span>
+
+}
+
+
+              /*
+                  -- GENERATED --
+                  SOURCE: app/views/commits.scala.html
+                  HASH: 20d7ad6fb3cf00af753af8705fbb0839d6a06e97
+                  MATRIX: 957-&gt;1|1137-&gt;86|1165-&gt;88|1822-&gt;720|1855-&gt;744|1895-&gt;746|1924-&gt;748|1975-&gt;772|2003-&gt;773|2034-&gt;777|2110-&gt;826|2138-&gt;827|2167-&gt;829|2202-&gt;837|2231-&gt;838|2262-&gt;842|2304-&gt;857|2332-&gt;858|2362-&gt;861|2401-&gt;872|2430-&gt;873|2461-&gt;877|2508-&gt;897|2536-&gt;898|2568-&gt;903|3372-&gt;1680|3388-&gt;1687|3422-&gt;1700|3511-&gt;1762|3527-&gt;1769|3561-&gt;1782|3649-&gt;1843|3665-&gt;1850|3699-&gt;1863|3814-&gt;1951|3830-&gt;1958|3864-&gt;1971|3953-&gt;2033|3969-&gt;2040|4003-&gt;2053|4090-&gt;2113|4106-&gt;2120|4140-&gt;2133|4471-&gt;2437|4484-&gt;2441|4512-&gt;2448|4541-&gt;2449|4822-&gt;2703|4852-&gt;2717|4891-&gt;2718|4925-&gt;2725|4970-&gt;2743|4994-&gt;2746|5039-&gt;2764|5058-&gt;2774|5088-&gt;2783|5149-&gt;2817|5173-&gt;2820|5203-&gt;2823|5227-&gt;2826|5292-&gt;2860|5366-&gt;2905|5426-&gt;2934|5456-&gt;2936
+                  LINES: 27-&gt;1|32-&gt;1|33-&gt;2|47-&gt;16|47-&gt;16|47-&gt;16|48-&gt;17|50-&gt;19|50-&gt;19|51-&gt;20|53-&gt;22|53-&gt;22|54-&gt;23|54-&gt;23|54-&gt;23|55-&gt;24|56-&gt;25|56-&gt;25|57-&gt;26|57-&gt;26|57-&gt;26|58-&gt;27|59-&gt;28|59-&gt;28|61-&gt;30|79-&gt;48|79-&gt;48|79-&gt;48|82-&gt;51|82-&gt;51|82-&gt;51|85-&gt;54|85-&gt;54|85-&gt;54|90-&gt;59|90-&gt;59|90-&gt;59|93-&gt;62|93-&gt;62|93-&gt;62|96-&gt;65|96-&gt;65|96-&gt;65|114-&gt;83|114-&gt;83|114-&gt;83|114-&gt;83|126-&gt;95|126-&gt;95|126-&gt;95|127-&gt;96|128-&gt;97|128-&gt;97|129-&gt;98|129-&gt;98|129-&gt;98|130-&gt;99|130-&gt;99|130-&gt;99|130-&gt;99|132-&gt;101|135-&gt;104|138-&gt;107|139-&gt;108
+                  -- GENERATED --
+              */
+          
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

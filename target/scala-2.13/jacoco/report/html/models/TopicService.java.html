@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TopicService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">TopicService.java</span></div><h1>TopicService.java</h1><pre class="source lang-java linenums">package models;
+
+import github.GithubHelper;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.*;
+import com.google.inject.Inject;
+import play.libs.ws.*;
+import java.util.concurrent.CompletionStage;
+import github.GithubHelper;
+import play.libs.Json;
+
+/**
+ * The below class variables will be assigned from GithubHelper.java to use them in topic.scala.html
+ * @author Heet Patel
+ */
+
+public class TopicService {
+	
+	private final GithubHelper github;
+	private String repoName;
+	
+	public String getRepoName() {
+<span class="nc" id="L25">		return repoName;</span>
+	}
+	public void setRepoName(String repoName) {
+<span class="fc" id="L28">		this.repoName = repoName;</span>
+<span class="fc" id="L29">	}</span>
+	@Inject
+<span class="fc" id="L31">	public TopicService(GithubHelper github) {</span>
+<span class="fc" id="L32">		this.github = github;</span>
+<span class="fc" id="L33">	}</span>
+	
+<span class="fc" id="L35">	CompletionStage&lt;List&lt;String&gt;&gt; titles = null;</span>
+	public CompletionStage&lt;List&lt;String&gt;&gt; getTopics(String repo) {
+<span class="fc" id="L37">		this.setRepoName(repo);</span>
+<span class="fc" id="L38">		CompletionStage&lt;List&lt;Topics&gt;&gt; issues = this.getTopic(repo);</span>
+<span class="fc" id="L39">		titles = issues.thenApplyAsync(issue -&gt; issue.stream()</span>
+<span class="fc" id="L40">				.map(s -&gt; s.getFull_name()).limit(10).collect(Collectors.toList()));</span>
+<span class="fc" id="L41">		return titles;</span>
+	}
+	public CompletionStage&lt;List&lt;Topics&gt;&gt; getTopic(String repo) {
+<span class="fc" id="L44">		return github.getTopic(repo);</span>
+
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

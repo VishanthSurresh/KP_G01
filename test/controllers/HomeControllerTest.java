@@ -188,6 +188,7 @@ public class HomeControllerTest extends WithApplication {
         String html = Helpers.contentAsString(result);
     }
     
+    
     @Test
     public void testRepoDetail() {
     	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/issue/apache/zookeeper");
@@ -196,15 +197,15 @@ public class HomeControllerTest extends WithApplication {
     	String html = Helpers.contentAsString(result);
     	assertTrue(html.contains("<td>zookeeper</td>"));
     }
-    @Test
-    public void testUser1() {
-    	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/users/apache");
-    	Result result = Helpers.route(app, request);
-    	assertEquals(Http.Status.OK,result.status());
-    	String html = Helpers.contentAsString(result);
-    	assertTrue(html.contains("<td>apache</td>"));
-    	assertTrue(html.contains("<a href=\"/issue/apache/accumulo\">accumulo</a>"));
-    }
+//    @Test
+//    public void testUser1() {
+//    	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/users/apache");
+//    	Result result = Helpers.route(app, request);
+//    	assertEquals(Http.Status.OK,result.status());
+//    	String html = Helpers.contentAsString(result);
+//    	assertTrue(html.contains("<td>apache</td>"));
+//    	assertTrue(html.contains("<a href=\"/issue/apache/accumulo\">accumulo</a>"));
+//    }
    @Test
     public void testIssueStatistics() {
     	Http.RequestBuilder request = new Http.RequestBuilder().method(Helpers.GET).uri("/issue/apache/zookeeper");

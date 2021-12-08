@@ -1,0 +1,12 @@
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m------- Jacoco Coverage Report -------[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mLines: 68.61% (>= required 0.0%) covered, 334 of 1064 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mInstructions: 64.4% (>= required 0.0%) covered, 3000 of 8426 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mBranches: 38.46% (>= required 0.0%) covered, 128 of 208 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mMethods: 49.4% (>= required 0.0%) covered, 255 of 504 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mComplexity: 43.59% (>= required 0.0%) covered, 343 of 608 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mClass: 81.97% (>= required 0.0%) covered, 11 of 61 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mCheck C:\Users\visha\Downloads\Gitterrific_project_KP_G01\Gitterrific_project_KPG01 (9)\Gitterrific_project_KPG01\target\scala-2.13\jacoco\report for detailed report[0m
+[0m[[0m[0minfo[0m] [0m[0m [0m

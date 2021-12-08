@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Commitservices.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">services</a> &gt; <span class="el_source">Commitservices.java</span></div><h1>Commitservices.java</h1><pre class="source lang-java linenums">package services;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+
+import com.fasterxml.jackson.databind.JsonNode;
+
+import play.libs.ws.WSBodyReadables;
+import play.libs.ws.WSBodyWritables;
+import play.libs.ws.WSClient;
+import play.libs.ws.WSRequest;
+import models.CommitsResult;
+
+public class Commitservices implements WSBodyReadables, WSBodyWritables{
+
+	private WSClient ws;
+<span class="fc" id="L27">	public Map&lt;String, Integer&gt; result = new LinkedHashMap&lt;&gt;();</span>
+	
+	
+	CommitsResult cr;
+	
+	@Inject
+<span class="fc" id="L33">	public Commitservices(WSClient ws) {</span>
+<span class="fc" id="L34">		this.ws = ws;</span>
+<span class="fc" id="L35">	}</span>
+
+	
+	/**
+	 * This method returns the entire data for repository commits. And also it is used for authorization purpose to Github API to get more than 100 commits data.
+	 * This method computes addition, deletion and average number of additons and deletions value for Repository Commits.
+	 * @param ownerName
+	 * @param repoName
+	 * @return Completion Stage of list containing commitsdata
+	 */
+	
+	public CompletableFuture&lt;List&lt;CommitsResult&gt;&gt; get_commits_data(String ownerName, String repoName) {
+<span class="fc" id="L47">		List&lt;Integer&gt; addition_list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L48">		List&lt;Integer&gt; deletion_list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L49">		List&lt;CommitsResult&gt; commits_model = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L50">		return CompletableFuture.supplyAsync(() -&gt; {</span>
+			Optional&lt;Integer&gt; max_Addition, max_deletion, min_Addition, min_deletion, avg_addition, avg_deletion;
+<span class="fc" id="L52">			String commits_url = &quot;https://api.github.com/repos&quot; + &quot;/&quot; + ownerName + &quot;/&quot; + repoName + &quot;/commits&quot;;</span>
+<span class="fc" id="L53">			System.out.println(commits_url);</span>
+<span class="fc" id="L54">			WSRequest request = ws.url(commits_url).addHeader(&quot;Authorization&quot;, &quot;token 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&quot;);</span>
+<span class="fc" id="L55">			request.addQueryParameter(&quot;per_page&quot;, &quot;100&quot;);</span>
+<span class="fc" id="L56">			request.addQueryParameter(&quot;page&quot;, &quot;1&quot;);</span>
+<span class="fc" id="L57">			request.setMethod(&quot;GET&quot;);</span>
+<span class="fc" id="L58">			CompletionStage&lt;JsonNode&gt; json_value = request.get().thenApply(r -&gt; r.getBody(json()));</span>
+			try {
+<span class="fc" id="L60">				List&lt;String&gt; sha_list = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">				for (JsonNode sha : json_value.toCompletableFuture().get()) {</span>
+<span class="fc" id="L62">					sha_list.add(sha.get(&quot;sha&quot;).asText());</span>
+<span class="fc" id="L63">				}</span>
+
+<span class="fc" id="L65">				System.out.println(&quot;Sha size: &quot; + sha_list.size());</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">				for (int i = 0; i &lt; sha_list.size(); i++) {</span>
+<span class="fc" id="L67">					WSRequest ws_req = ws.url(commits_url + &quot;/&quot; + sha_list.get(i)).addHeader(&quot;Authorization&quot;,</span>
+							&quot;token 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&quot;);
+<span class="fc" id="L69">					ws_req.setMethod(&quot;GET&quot;);</span>
+<span class="fc" id="L70">					CompletionStage&lt;JsonNode&gt; resFromRequest = ws_req.get().thenApply(result -&gt; result.asJson());</span>
+<span class="fc" id="L71">					JsonNode temp_var = resFromRequest.toCompletableFuture().get();</span>
+<span class="fc" id="L72">					addition_list.add(temp_var.get(&quot;stats&quot;).findPath(&quot;additions&quot;).asInt());</span>
+<span class="fc" id="L73">					deletion_list.add(temp_var.get(&quot;stats&quot;).findPath(&quot;deletions&quot;).asInt());</span>
+<span class="fc" id="L74">					max_Addition = addition_list.stream().max(Integer::compare);</span>
+<span class="fc" id="L75">					min_Addition = addition_list.stream().min(Integer::compare);</span>
+<span class="fc" id="L76">					avg_addition = Optional.of(addition_list.stream().reduce(0, Integer::sum) / sha_list.size());</span>
+<span class="fc" id="L77">					max_deletion = deletion_list.stream().max(Integer::compare);</span>
+<span class="fc" id="L78">					min_deletion = deletion_list.stream().min(Integer::compare);</span>
+<span class="fc" id="L79">					avg_deletion = Optional.of(deletion_list.stream().reduce(0, Integer::sum) / sha_list.size());</span>
+<span class="fc" id="L80">					cr = new CommitsResult(temp_var.get(&quot;author&quot;).findPath(&quot;avatar_url&quot;).asText(),</span>
+<span class="fc" id="L81">							temp_var.get(&quot;author&quot;).findPath(&quot;login&quot;).asText(), temp_var.get(&quot;commit&quot;).findPath(&quot;message&quot;).asText(),</span>
+<span class="fc" id="L82">							temp_var.get(&quot;stats&quot;).findPath(&quot;additions&quot;).asText(),</span>
+<span class="fc" id="L83">							temp_var.get(&quot;stats&quot;).findPath(&quot;deletions&quot;).asText(), temp_var.get(&quot;stats&quot;).findPath(&quot;total&quot;).asText(),</span>
+							max_Addition, min_Addition, max_deletion, min_deletion, avg_addition, avg_deletion);
+<span class="fc" id="L85">					commits_model.add(cr);</span>
+				}
+
+<span class="nc" id="L88">			} catch (InterruptedException | ExecutionException e) {</span>
+				// TODO Auto-generated catch block
+<span class="nc" id="L90">				e.printStackTrace();</span>
+<span class="fc" id="L91">			}</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">			for (int i = 0; i &lt; commits_model.size(); i++) {</span>
+<span class="fc" id="L93">				System.out.println(commits_model.get(i).max_addition);</span>
+			}
+<span class="fc" id="L95">			return commits_model;</span>
+
+		});
+	}
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

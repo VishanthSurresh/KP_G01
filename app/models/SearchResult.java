@@ -19,7 +19,7 @@ public class SearchResult {
   public Hashtable<String, String> owner = new Hashtable<String, String>();
 
   /*public String body;
-  public String subreddit;*/
+  public String Github;*/
 
   public SearchResult() {}
   public SearchResult(String name,String full_name, ArrayList<String> topics, Hashtable<String, String> owner) {

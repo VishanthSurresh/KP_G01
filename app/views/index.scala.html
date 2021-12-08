@@ -1,4 +1,4 @@
-@(data : List[QuerySearchResult])
+@(data : List[QuerySearchResult],request:play.mvc.Http.Request)
 @import scala.collection.View._
 @import helper._
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <title></title>
 </head>
-<body>
+<body data-ws-url="@routes.HomeController.ws.webSocketURL(request)">
 @main("Welcome") {
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="topbar">
     <div class="container-fluid" > <a class="navbar-brand" href="#">Gitterrific</a> <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span> </button>
@@ -58,12 +58,12 @@
   <tbody>
     @for(post  <- record.getData()) {
     <tr>
-	  <td><span id = @index@post.full_name></span>
+	  <td><span class="Owner@post.full_name" id ="@index@post.full_name" ></span>
       </td>
-      <td><span><a  href="/issue/@post.full_name">@post.name</a></span>
+      <td><span class="Repo@post.full_name" id="Name" ><a href="/issue/@post.full_name">@post.name</a></span>
       </td>
       
-      <td>@for(topic<- post.topics){
+      <td id="Topics@post.full_name">@for(topic<- post.topics){
               <span><a href="/topic/@topic ">[@topic]</a></span>
               }</td>
         <script>
@@ -87,6 +87,52 @@
 }
 </div>
 }
+<div id="time"></div>
+
+
+<script>
+  
+  
+
+  (function() {
+  $(function() {
+    var ws;
+    console.log("Inside Custom Script");
+    ws = new WebSocket($("body").data("ws-url"));
+    return ws.onmessage = function(event) {
+      var message;
+      message = JSON.parse(event.data);
+      if(message.status == "No-Change"){
+        console.log("No Change from last Update!");
+        $('#time').append(message.status + "<br/>");
+      }else{
+        console.log(message.value);   
+        var allChanges = JSON.parse(message.value);
+        console.log("Updating "+ message.status + "Repositories" );
+        for(var i =0; i< parseInt(message.status); i++){                    
+             var githubResult = allChanges[i];
+             console.log(githubResult);
+             $("#Owner"+ githubResult.repoToChange).html("<a href='/user/"+ githubResult.full_name + "'>"+ githubResult.full_name+"</a>");
+             $("#Name"+ githubResult.repoToChange).html("<a href='/issue/"+ githubResult.full_name+"'>"+ githubResult.name +"</a>");
+             var data= '';
+             var topics= githubResult.topics.substring(1, githubResult.topics.length-1).split(",");
+             console.log("Topics :: "+topics+ " : " +topics.length);
+             if(topics.length>1){
+              console.log("Topics :: " +topics[4]);
+               for(var j=0; j<topics.length; j++){
+                  data += '<span><a href="/topic/'+ topics[j] +'">[' + topics[j] + ']</a></span> ';
+               }
+               $("#Topics"+ githubResult.repoToChange).html(data);
+             }
+        }
+      }
+    };
+  });
+
+}).call(this);
+
+
+</script>
 
 </body>
 </html>

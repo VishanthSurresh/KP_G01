@@ -1,0 +1,26 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(test, Some(bff9071c-77be-4d78-8d1c-17ff89984e4d), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / test[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Java source to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 1 Java source to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\test-classes ...[0m
+[0m[[0m[0minfo[0m] [0m[0mInstrumenting 56 classes to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\instrumented-classes[0m
+[0m[[0m[31merror[0m] [0m[0mTest actors.[33mSearchsupervisorTest[0m.[31mSearchsupervisorTest[0m failed: akka.actor.[31mActorInitializationException[0m: You cannot create an instance of [actors.Searchsupervisor] explicitly using the constructor (new). You have to use one of the 'actorOf' factory methods to create a new actor. See the documentation., took 0.048 sec[0m
+[0m[[0m[31merror[0m] [0m[0m    at akka.actor.ActorInitializationException$.apply(Actor.scala:198)[0m
+[0m[[0m[31merror[0m] [0m[0m    at akka.actor.Actor.$init$(Actor.scala:492)[0m
+[0m[[0m[31merror[0m] [0m[0m    at akka.actor.AbstractActor.<init>(AbstractActor.scala:220)[0m
+[0m[[0m[31merror[0m] [0m[0m    at actors.Searchsupervisor.<init>(Searchsupervisor.java:23)[0m
+[0m[[0m[31merror[0m] [0m[0m    at actors.SearchsupervisorTest.SearchsupervisorTest([35mSearchsupervisorTest.java[0m:[33m10[0m)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)[0m
+[0m[[0m[31merror[0m] [0m[0m    at jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)[0m
+[0m[[0m[31merror[0m] [0m[0m    at java.lang.reflect.Method.invoke(Method.java:566)[0m
+[0m[[0m[31merror[0m] [0m[0m    ...[0m
+[0m[[0m[31merror[0m] [0m[0mFailed: Total 35, Failed 1, Errors 0, Passed 34[0m
+[0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
+[0m[[0m[31merror[0m] [0m[0m	actors.SearchsupervisorTest[0m
+[0m[[0m[31merror[0m] [0m[0m(Test / [31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m
+[0m[[0m[31merror[0m] [0m[0mTotal time: 41 s, completed 05-Dec-2021, 5:03:08 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m

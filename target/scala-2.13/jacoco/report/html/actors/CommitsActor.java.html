@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommitsActor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">actors</a> &gt; <span class="el_source">CommitsActor.java</span></div><h1>CommitsActor.java</h1><pre class="source lang-java linenums">package actors;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.*;
+
+import javax.inject.Inject;
+
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.Props;
+import models.CommitsResult;
+import play.libs.ws.WSClient;
+import services.Commitservices;
+
+
+/**
+ * The class acts as Actor for Repository Commits
+ * @author vishanth 
+ */
+public class CommitsActor extends AbstractActor{
+	
+	static public class CommitInfo{
+		public final String user_name;
+		public final String repository_name;
+		Commitservices commits_service;
+<span class="fc" id="L27">		public CommitInfo(String user_name, String repository_name, Commitservices commits_service) {</span>
+<span class="fc" id="L28">			this.user_name = user_name;</span>
+<span class="fc" id="L29">			this.repository_name = repository_name;</span>
+<span class="fc" id="L30">			this.commits_service = commits_service;</span>
+<span class="fc" id="L31">		}</span>
+	}
+	
+	private final Commitservices commitService;
+	
+	@Inject
+	public CommitsActor(Commitservices commitService)
+<span class="fc" id="L38">	{</span>
+<span class="fc" id="L39">		this.commitService=commitService;</span>
+<span class="fc" id="L40">	}</span>
+	
+	@Override
+	public Receive createReceive() {
+		// TODO Auto-generated method stub
+<span class="fc" id="L45">		return receiveBuilder()</span>
+<span class="fc" id="L46">				.match(CommitInfo.class, this::sendCommitsData)</span>
+<span class="fc" id="L47">				.build();</span>
+	}
+	
+	
+	public static Props getProps(Commitservices cs) {
+<span class="fc" id="L52">		return Props.create(CommitsActor.class, () -&gt; new CommitsActor(cs));</span>
+	}
+
+	
+	
+	private void sendCommitsData(CommitInfo cInfo) {
+		try {
+<span class="fc" id="L59">			CompletionStage&lt;List&lt;CommitsResult&gt;&gt; cData = cInfo.commits_service.get_commits_data(cInfo.user_name, cInfo.repository_name);</span>
+<span class="fc" id="L60">			System.out.println(&quot;Output from COMMITS_ACTOR!!----------&gt; &quot;);</span>
+<span class="fc" id="L61">			sender().tell(cData.toCompletableFuture().get(), self());</span>
+		}
+<span class="nc" id="L63">		catch(InterruptedException e) {</span>
+<span class="nc" id="L64">			sender().tell(new CommitsResult(), self());</span>
+		}
+<span class="nc" id="L66">		catch(ExecutionException e) {</span>
+<span class="nc" id="L67">			sender().tell(new CommitsResult(), self());</span>
+<span class="pc" id="L68">		}</span>
+<span class="fc" id="L69">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

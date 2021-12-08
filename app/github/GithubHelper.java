@@ -25,6 +25,7 @@ public class GithubHelper {
   private static String endpoint = "https://api.github.com/search/repositories";
   private static String endpointRepo = "https://api.github.com/repos/";
   private static String endpointIssues = "https://api.github.com/repos/REPO_NAME/issues";
+  private static String endpointUserRep = "https://api.github.com/users/";
 
   @Inject
   public GithubHelper(WSClient ws) {
@@ -55,6 +56,27 @@ public class GithubHelper {
 	  System.out.println("query --" + query);
 	  
 	  WSRequest req = ws.url(endpointRepo+query);
+	  System.out.println("Request Object: "+req);
+	  return req;
+  }
+  
+  /**
+   * This method returns the repository details from Github API
+   * @author Bhavitha
+   */
+  public WSRequest getRepoDet(String query) {
+	  //System.out.println("repoooooooooooquery --" + query);
+	  //System.out.println("URL !!!!!  >>>>>>>: "+endpointUserRep+query+"/repos");
+	  WSRequest req = ws.url(endpointUserRep+query+"/repos");
+	  System.out.println("Request Object: "+req);
+	  return req;
+  }
+  
+  public WSRequest getUser(String query) {
+	  System.out.println("repoooooooooooquery --" + query);
+	  
+	  WSRequest req = ws.url(endpointUserRep+query);
+   // req.addHeader("Authorization", "token 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");
 	  System.out.println("Request Object: "+req);
 	  return req;
   }

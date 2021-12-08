@@ -27,6 +27,7 @@ public class CacheManager {
   private static HashMap<String, QuerySearchResult> results;
   private static HashMap<String,IssueSearchResult> ownerInfoResults;
   private static GithubHelper helper;
+  static WSClient ws;
   
   /**
    * CacheManager private default Constructor. This initializes the CacheManager object only once
@@ -36,8 +37,9 @@ public class CacheManager {
    * @author Heet Patel
    * @author Shail Patel
    */
-
-  public CacheManager() {
+  @Inject
+  public CacheManager(WSClient ws) {
+	  this.ws = ws;
   }
   
   /**
@@ -51,9 +53,9 @@ public class CacheManager {
    * */
 
   @Inject
-  public static CacheManager GetCache(WSClient ws){
+  public static CacheManager GetCache(){
     if (cache==null) {
-      cache = new CacheManager();
+      cache = new CacheManager(ws);
       helper = new GithubHelper(ws);
       results = new HashMap<>();
     }

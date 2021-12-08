@@ -1,8 +1,14 @@
 package controllers;
-
 import models.*;
-
+import actors.TopicDataActor;
+import actors.RepoProfileActor;
+import actors.RepoProfileActor.RepoInfo;
+import actors.TopicDataActor.TopicDetails;
+import actors.IssueStatActor;
+import actors.IssueStatActor.IssueStatInfo;
 import play.mvc.*;
+import scala.compat.java8.FutureConverters;
+import services.Commitservices;
 import java.util.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,17 +16,25 @@ import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.databind.JsonNode;
-
 import javax.inject.Inject;
-
 import github.GithubHelper;
-
 import java.io.IOException;
-
 import play.api.libs.json.Json;
 import play.libs.ws.*;
+import akka.actor.*;
+import akka.stream.Materializer;
+import actors.CommitsActor;
+import actors.CommitsActor.CommitInfo;
+import actors.SearchResultActor;
+import actors.UserActor;
+import actors.UserActor.UserInfo;
+import services.Userservices;
+import actors.SearchResultActor.SearchResultInfo;
+import actors.Searchsupervisor;
+import play.libs.streams.ActorFlow;
+import static akka.pattern.Patterns.ask;
+
 // TODO: Auto-generated Javadoc
 /**
  * This controller contains an action to handle HTTP requests
@@ -29,7 +43,21 @@ import play.libs.ws.*;
 public class HomeController extends Controller implements WSBodyReadables, WSBodyWritables {
     
     /** The ws. */
-    private final WSClient ws;
+	@Inject
+    private WSClient ws;
+	@Inject
+	private ActorSystem actorSystem;
+	@Inject
+	private Materializer materializer;
+	
+
+	
+	ActorRef commitsActor;
+	ActorRef topicDataActor;
+    ActorRef repoActor;
+    ActorRef issueStatActor;
+    ActorRef searchResultActor;
+    ActorRef userActor;
     
     /** The github. */
     private final GithubHelper github;
@@ -37,8 +65,9 @@ public class HomeController extends Controller implements WSBodyReadables, WSBod
     /** The issue search result. */
     private final IssueSearchResult issueSearchResult;
     
+    private final Userservices userservices;
     /** The topic service. */
-    private final TopicService topicService;
+    //private final TopicService topicService;
     
     /** The user. */
     User user;
@@ -54,54 +83,64 @@ public class HomeController extends Controller implements WSBodyReadables, WSBod
     
     /** The cr. */
     CommitsResult cr;
+    Userservices usvc;
+    //Cache
+    CacheManager cm;
     
+    List<QuerySearchResult> ex = new ArrayList<>();
+    
+    public Map<String,Integer> result = new LinkedHashMap<>();
+    
+    @Inject Commitservices commit = new Commitservices(ws);
+    private final TopicService topic;
     
     /**
      * Instantiates a new home controller.
-     *
      * @param ws the ws
      * @param github the github
      */
     @Inject
-    public HomeController(WSClient ws,GithubHelper github) {
+    public HomeController(WSClient ws,GithubHelper github, ActorSystem system) {
         this.ws = ws;
         this.github = github;
         this.issueSearchResult =  new IssueSearchResult(github);
-        this.topicService = new TopicService(github);
+        this.userservices  = new Userservices(github); 
+        this.topic = new TopicService(github);
+        commitsActor = system.actorOf(CommitsActor.getProps(commit));
+        topicDataActor=system.actorOf(TopicDataActor.getProps(topic));
+        repoActor=system.actorOf(RepoProfileActor.getProps(issueSearchResult));
+        userActor=system.actorOf(UserActor.getProps(userservices));
+        issueStatActor = system.actorOf(IssueStatActor.getProps(issueSearchResult));
+        cm = new CacheManager(ws);
+        searchResultActor = system.actorOf(SearchResultActor.getProps(), "searchResultActor");
     }
     
+    public WebSocket ws(){
+		 System.out.println("Inside Websocket!!-----> ");
+	        return WebSocket.Json.accept(request -> ActorFlow.actorRef(Searchsupervisor::props, actorSystem, materializer));
+	    }
     /**
      * An action that renders an HTML page. The configuration in the <code>routes</code> file means that
      * this method will be called when the application receives a
      * <code>GET</code> request with a path of <code>/</code>.
-     *
      * @param request the request
      * @return the result
      */
      
-    public Result index(Http.Request request) {
-        var sessionData = request.session().get("searchedTerms");
-        System.out.println(sessionData);
+    @SuppressWarnings("unchecked")
+	public CompletionStage<Result> index(Http.Request request) {
 
-        if(!sessionData.isPresent()) {
-            System.out.println("23"+request);
-            System.out.println(ws);
-            return ok(views.html.index.render(new ArrayList<QuerySearchResult>()));
-            //  return ok(views.html.index.render();
-         } else {
-             return ok(views.html.index.render(
-                 Arrays.stream(sessionData.get().split(","))
-                    .filter(e->!e.isEmpty())
-                    .parallel()
-                    .map(CacheManager.GetCache(ws)::GetTrimmedSearchResult)
-                    .collect(Collectors.toList()))
-             );
-         }
+    	return FutureConverters
+				.toJava(ask(searchResultActor, new SearchResultInfo(request,cm), 10000))
+				.thenApply(res ->{
+					ex = (List<QuerySearchResult>)res;
+					return ok(views.html.index.render(ex,request));
+				});
+				
     }
     
     /**
      * This function returns the values for search result from Github API.
-     *
      * @param query the query
      * @param request the request
      * @return the result
@@ -116,18 +155,32 @@ public class HomeController extends Controller implements WSBodyReadables, WSBod
 
     /**
      * This method fetches the repository issues from IssueSearchResult.java and RepoIssues.java
-     *
-     * @author Varshini
+     * @author Shail
      * @param user the user
      * @param repo the repo
      * @return the completion stage
      */
 
     public CompletionStage<Result> issues(String user, String repo){
-        CompletionStage<Result> result = issueSearchResult.getIssueStatistics(user+"/"+repo).thenApplyAsync(
-                op -> ok(views.html.repositoryprofile.render(op, user.toString(),issueSearchResult.getData(), issueSearchResult.getRepoName())));
-                
-        return result;
+    	return FutureConverters.toJava(ask(repoActor, new RepoInfo(user+"/"+repo, issueSearchResult), 1000000))
+				.thenApplyAsync(response -> {
+					List<String> issues = (List<String>)response;
+					return ok(views.html.repositoryprofile.render(issues,user.toString(),issueSearchResult.getData(), issueSearchResult.getRepoName()));
+				});
+    }
+    
+	/**
+     * This method fetches the user details from User.java and Userservices.java
+     * @author Bhavitha
+     * @param owner
+     * @return the completion stage
+     */
+	 
+    public CompletionStage<Result> userDetails(String owner){
+    	return FutureConverters.toJava(ask(userActor, new UserInfo(owner,userservices), 10000)).thenApplyAsync(response -> {
+					User userDet = (User)response;
+					return ok(views.html.Userinfo.render(userDet,userservices.getDet()));
+		}); 
     }
     
     /**
@@ -139,10 +192,11 @@ public class HomeController extends Controller implements WSBodyReadables, WSBod
     
     
     public CompletionStage<Result> issuesstat(){
-        CompletionStage<Result> result = issueSearchResult.getIssueStatisticss().thenApplyAsync(
-                op -> ok(views.html.issuestatistics.render(op)));
-        
-        return result;
+    	return FutureConverters.toJava(ask(issueStatActor, new IssueStatInfo(issueSearchResult), 1000000))
+				.thenApplyAsync(response -> {
+					Map<String, Integer> issues = (Map<String, Integer>)response;
+					return ok(views.html.issuestatistics.render(issues));
+				});
     }
     
     /**
@@ -154,159 +208,42 @@ public class HomeController extends Controller implements WSBodyReadables, WSBod
      */
     
     public CompletionStage<Result> topics(String repo){
-        CompletionStage<Result> result = topicService.getTopics(repo).thenApplyAsync(
-                op -> ok(views.html.topic.render(op)));
-        
-        return result;
+    	return FutureConverters.toJava(ask(topicDataActor, new TopicDetails(repo,topic), 10000)).thenApplyAsync(response -> {
+			List<String> topicsList = (List<String>)response;
+            return ok(views.html.topic.render(topicsList));
+});
     }
     
-    /**
-     * This method fetches all the user details. 
-     *
-     * @author Bhavitha
-     * @param owner the owner
-     * @return the completion stage
-     */
-    
-    
-    
-    public CompletionStage<Result> fetchUser(final String owner) {
-                return ws.url("https://api.github.com/users/"+owner)
-            //.addHeader("Authorization", "token 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")
-            .get()
-            .thenApply(r -> {
-                JsonNode item = r.asJson();
-                return new User(item.get("id").asInt(), item.get("login").asText(), item.get("url").asText(), item.get("email").asText(),item.get("bio").asText(),item.get("location").asText(),item.get("followers").asText(),item.get("following").asText(),item.get("html_url").asText(),item.get("avatar_url").asText());
-            })
-            .thenApplyAsync(r -> {
-                try {
-                    CompletionStage<List<Repository>> c = ws.url("https://api.github.com/users/"+owner+"/repos")
-                        .addHeader("Authorization", "token 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")
-                        .get()
-                        .thenApply(res -> {
-                            JsonNode items = res.asJson();
-                            Repository repo;
-                            List<Repository> repos = new ArrayList<Repository>();
-                            for (int i = 0; items.get(i) != null; i++) {
-                                JsonNode item = items.get(i);
-                                List<String> topics = new ArrayList<String>();
-                                JsonNode topicNode = item.get("topics");
-                                for (int j = 0; topicNode.get(j) != null; j++) {
-                                    topics.add(topicNode.get(j).asText());
-                                }
-                                repo = new Repository(item.get("name").asText(),item.get("url").asText());
-                                repos.add(repo);
-                            }
-                            return repos;
-                        });
-                    return ok(views.html.Userinfo.render(r, c.toCompletableFuture().get()));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            });
-    
-        
-}
-    
-    /**
-     * This method returns the entire data for repository commits. And also it is used for authorization purpose to Github API to get more than 100 commits data.
-     *
-     * @author Vishanth
-     * @param url the url
-     * @return the full commits data
-     * @throws InterruptedException the interrupted exception
-     * @throws ExecutionException the execution exception
-     */
-    
-    public void get_full_commits_data(String url) throws InterruptedException, ExecutionException {
-        System.out.println("Inside get_full_commits_data");
-        WSRequest req = ws.url(url).addHeader("Authorization", "token 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");
-        req.addQueryParameter("per_page", "100");
-        req.addQueryParameter("page", "1");
-        req.setMethod("GET");
-        CompletionStage<JsonNode> resFromRequest = req.get().thenApply(result -> result.asJson());
-        fullCommitsResult = resFromRequest.toCompletableFuture().get();
-    }
-    
-    /**
-     * This method returns the addition, deletion and average number of additons and deletions value for Repository Commits.
-     *
-     * @author Vishanth
-     * @param user the user
-     * @param repo the repo
-     * @return the result
-     * @throws InterruptedException the interrupted exception
-     * @throws ExecutionException the execution exception
-     */
-    
-    public Result commits(String user, String repo) throws InterruptedException, ExecutionException{
-        System.out.println("Inside get_commits_data");
-        Optional<Integer> maxAdd, maxDel, minAdd, minDel, avgAdd, avgDel;
-        List<CommitsResult> topCommiters = new ArrayList<>();
-        List<String> commitKeysList = new ArrayList<>();
-        String commitUrl = "https://api.github.com/repos" + "/" + user + "/" + repo + "/commits";
-        get_full_commits_data(commitUrl);
-        List<String> shaList = new ArrayList<>();
-        for (JsonNode sha : fullCommitsResult) {
-            shaList.add(sha.get("sha").toString().replaceAll("^\"|\"$", ""));
-        }
-        System.out.println("Sha size: " + shaList.size());
-        for (int i = 0; i < shaList.size(); i++) {
-            WSRequest req = ws.url(commitUrl + "/" + shaList.get(i)).addHeader("Authorization", "token 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");
-            req.setMethod("GET");
-            CompletionStage<JsonNode> resFromRequest = req.get().thenApply(result -> result.asJson());
-            JsonNode temp = resFromRequest.toCompletableFuture().get();
-            // System.out.println(Json.prettyPrint(temp.get("stats")));
-            maxAddList.add(temp.get("stats").findPath("additions").asInt());
-            maxDelList.add(temp.get("stats").findPath("deletions").asInt());
-            maxAdd = maxAddList.stream().max(Integer::compare);
-            minAdd = maxAddList.stream().min(Integer::compare);
-            avgAdd = Optional.of(maxAddList.stream().reduce(0, Integer::sum) / shaList.size());
-            maxDel = maxDelList.stream().max(Integer::compare);
-            minDel = maxDelList.stream().min(Integer::compare);
-            avgDel = Optional.of(maxDelList.stream().reduce(0, Integer::sum) / shaList.size());
-            cr = new CommitsResult(
-                    temp.get("author").findPath("avatar_url").asText(),
-                    temp.get("author").findPath("login").asText(),
-                    temp.get("commit").findPath("message").asText(),
-                    temp.get("stats").findPath("additions").asText(),
-                    temp.get("stats").findPath("deletions").asText(),
-                    temp.get("stats").findPath("total").asText(),
-                    maxAdd,
-                    minAdd,
-                    maxDel, 
-                    minDel,
-                    avgAdd,
-                    avgDel
-                    );
-            topCommiters.add(cr);
-        }
-        
         /**
 		 * This part of code returns the Top 10 Commiters data for Repository Commits
 		 * @author Vishanth
 		 */
         
-        List<CommitsResult> topTen = topCommiters.parallelStream()
-                .map(c -> new CommitsResult(c.get_user_name(), c.get_additions(), c.get_deletions()))
-                .collect(Collectors.toList());
-        Map<String, Integer> result = new LinkedHashMap<>();
-        result = topTen.parallelStream().collect(Collectors.toMap(w -> w.get_user_name(), w -> 1, Integer :: sum));
-        result = result.entrySet()
-                .stream()
-                .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
-                .limit(10)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-        System.out.println(result);
-        Iterator<String> iterator = result.keySet().iterator();
-        while(iterator.hasNext()){
-          Object commitKey = iterator.next();
-          commitKeysList.add((String)commitKey); 
-        }
-    
-        return ok(views.html.commits.render(cr, commitKeysList, result));
+        public CompletionStage<Result> commits(String user, String repo) throws Exception{
+        	List<String> commitKeysList = new ArrayList<>();
+        	return FutureConverters.toJava(ask(commitsActor, new CommitInfo(user, repo, commit), 1000000))
+    				.thenApplyAsync(response -> {
+    					List<CommitsResult> topCommiters = (List<CommitsResult>)response;
+    					List<CommitsResult> topTen = topCommiters.parallelStream()
+    							.map(c -> new CommitsResult(c.get_user_name(), c.get_additions(), c.get_deletions()))
+    							.collect(Collectors.toList());
+    					result = topTen.parallelStream()
+    							.collect(Collectors.toMap(w -> w.get_user_name(), w -> 1, Integer::sum));
+    					result = result.entrySet().stream()
+    							.sorted((Map.Entry.<String, Integer>comparingByValue().reversed())).limit(10)
+    							.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1,
+    									LinkedHashMap::new));
+    					Iterator<String> iterator = result.keySet().iterator();
+    					while (iterator.hasNext()) {
+    						Object commitKey = iterator.next();
+    						commitKeysList.add((String) commitKey);
+    					}
+    					int size = topCommiters.size();
+    					System.out.println("LAST VALUE: " + topCommiters.get(size - 1));
+    					return ok(views.html.commits.render(topCommiters.get(size - 1), commitKeysList, result));
+    				});
      
     }
+        
 
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">models</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package models;
+
+import java.util.*;
+
+import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * The below class variables(related to user details) will be assigned from HomeController.java to use them in Userinfo.scala.html
+ * @author Bhavitha
+ */
+
+
+public class User implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	@JsonProperty(&quot;id&quot;)
+	public int id;
+
+	@JsonProperty(&quot;login&quot;)
+	public String login;
+	
+	@JsonProperty(&quot;url&quot;)
+	public String url;
+	
+	@JsonProperty(&quot;email&quot;)
+	public String email;
+	
+	@JsonProperty(&quot;bio&quot;)
+	public String bio;
+	
+	@JsonProperty(&quot;location&quot;)
+	public String location;
+	
+	@JsonProperty(&quot;followers&quot;)
+	public String followers;
+	
+	@JsonProperty(&quot;following&quot;)
+	public String following;
+	
+	@JsonProperty(&quot;html_url&quot;)
+	public String html_url;
+	
+	@JsonProperty(&quot;avatar_url&quot;)
+	public String avatar_url;
+	
+	public String getAvatar_url() {
+<span class="fc" id="L50">		return avatar_url;</span>
+	}
+
+	public void setAvatar_url(String avatar_url) {
+<span class="fc" id="L54">		this.avatar_url = avatar_url;</span>
+<span class="fc" id="L55">	}</span>
+
+	public String gethtml_url() {
+<span class="fc" id="L58">		return html_url;</span>
+	}
+	
+	public void sethtml_url(String html_url) {
+<span class="fc" id="L62">		this.html_url = html_url;</span>
+<span class="fc" id="L63">	}</span>
+
+	public String getfollowing() {
+<span class="fc" id="L66">		return following;</span>
+	}
+
+	public void setfollowing(String following) {
+<span class="fc" id="L70">		this.following = following;</span>
+<span class="fc" id="L71">	}</span>
+
+	
+	public String getfollowers() {
+<span class="fc" id="L75">		return followers;</span>
+	}
+
+	public void setfollowers(String followers) {
+<span class="fc" id="L79">		this.followers = followers;</span>
+<span class="fc" id="L80">	}</span>
+
+	public String getlocation() {
+<span class="fc" id="L83">		return location;</span>
+	}
+
+	public void setlocation(String location) {
+<span class="fc" id="L87">		this.location = location;</span>
+<span class="fc" id="L88">	}</span>
+
+	public String getbio() {
+<span class="fc" id="L91">		return bio;</span>
+	}
+
+	public void setbio(String bio) {
+<span class="fc" id="L95">		this.bio = bio;</span>
+<span class="fc" id="L96">	}</span>
+
+	public String getemail() {
+<span class="fc" id="L99">		return email;</span>
+	}
+
+	public void setemail(String email) {
+<span class="fc" id="L103">		this.email = email;</span>
+<span class="fc" id="L104">	}</span>
+
+	public String geturl() {
+<span class="fc" id="L107">		return url;</span>
+	}
+
+	public void seturl(String url) {
+<span class="fc" id="L111">		this.url = url;</span>
+<span class="fc" id="L112">	}</span>
+
+	public String getlogin() {
+<span class="fc" id="L115">		return login;</span>
+	}
+
+	public void setlogin(String login) {
+<span class="fc" id="L119">		this.login = login;</span>
+<span class="fc" id="L120">	}</span>
+
+	public int getid() {
+<span class="fc" id="L123">		return id;</span>
+	}
+
+	public void setid(int id) {
+<span class="fc" id="L127">		this.id = id;</span>
+<span class="fc" id="L128">	}</span>
+
+<span class="fc" id="L130">	public User() {}</span>
+	
+	public User(int id,String login,String url,String email,String bio,String location,String followers,String following,String html_url,String avatar_url){
+<span class="fc" id="L133">		super();</span>
+<span class="fc" id="L134">		this.id=id;</span>
+<span class="fc" id="L135">		this.login=login;</span>
+<span class="fc" id="L136">		this.url=url;</span>
+<span class="fc" id="L137">		this.email=email;</span>
+<span class="fc" id="L138">		this.bio=bio;</span>
+<span class="fc" id="L139">		this.location=location;</span>
+<span class="fc" id="L140">		this.followers=followers;</span>
+<span class="fc" id="L141">		this.following=following;</span>
+<span class="fc" id="L142">		this.html_url=html_url;</span>
+<span class="fc" id="L143">		this.avatar_url=avatar_url;</span>
+<span class="fc" id="L144">	}</span>
+
+	
+    @Override
+	public String toString(){
+<span class="fc" id="L149">    	return login;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

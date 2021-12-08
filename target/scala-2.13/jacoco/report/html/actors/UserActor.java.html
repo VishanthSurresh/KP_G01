@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserActor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">actors</a> &gt; <span class="el_source">UserActor.java</span></div><h1>UserActor.java</h1><pre class="source lang-java linenums">package actors;
+import models.*;
+import actors.TopicDataActor;
+import actors.RepoProfileActor;
+import actors.RepoProfileActor.RepoInfo;
+import actors.TopicDataActor.TopicDetails;
+import actors.UserActor;
+import actors.UserActor.UserInfo;
+import play.mvc.*;
+import scala.compat.java8.FutureConverters;
+import services.Commitservices;
+import services.Userservices;
+import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+import com.fasterxml.jackson.databind.JsonNode;
+import javax.inject.Inject;
+import github.GithubHelper;
+import java.io.IOException;
+import play.api.libs.json.Json;
+import play.libs.ws.*;
+import akka.actor.*;
+import akka.stream.Materializer;
+import actors.CommitsActor;
+import actors.CommitsActor.CommitInfo;
+import static akka.pattern.Patterns.ask;
+
+/**
+ * This class acts as Actor for User page
+ * @author Bhavitha
+ *
+ */
+
+public class UserActor extends AbstractActor{
+	
+	static public class UserInfo{
+		public final String owner;
+		Userservices uService;
+<span class="nc" id="L43">		public UserInfo(String owner,Userservices uService) {</span>
+<span class="nc" id="L44">			this.owner=owner;</span>
+<span class="nc" id="L45">			this.uService=uService;</span>
+<span class="nc" id="L46">		}</span>
+	}
+	
+	private final Userservices userService;
+	
+	@Inject
+<span class="fc" id="L52">	public UserActor(Userservices userService) {</span>
+<span class="fc" id="L53">		this.userService = userService;</span>
+<span class="fc" id="L54">	}</span>
+	
+	public static Props getProps(Userservices us) {
+<span class="fc" id="L57">		return Props.create(UserActor.class, () -&gt; new UserActor(us));</span>
+	}
+
+	@Override
+	public Receive createReceive() {
+		// TODO Auto-generated method stub
+<span class="fc" id="L63">		return receiveBuilder()</span>
+<span class="fc" id="L64">				.match(UserInfo.class, this::sendUserData)</span>
+<span class="fc" id="L65">				.build();</span>
+	}
+	
+	private void sendUserData(UserInfo uInfo) {
+		try {
+<span class="nc" id="L70">			CompletionStage&lt;User&gt; uData = uInfo.uService.getUserData(uInfo.owner);</span>
+			//uInfo.uService.getUserData(uInfo.owner);
+			//User up = uInfo.uService.getData();
+<span class="nc" id="L73">			System.out.println(&quot;Response From USER ACTOR!!--&gt; &quot; + uData.toCompletableFuture().get());</span>
+<span class="nc" id="L74">			sender().tell(uData.toCompletableFuture().get(), self());</span>
+		}
+<span class="nc" id="L76">		catch(Exception e) {</span>
+<span class="nc" id="L77">			sender().tell(new User(), self());</span>
+<span class="nc" id="L78">		}</span>
+		/*catch(ExecutionException e) {
+			sender().tell(new User(), self());
+		}*/
+<span class="nc" id="L82">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

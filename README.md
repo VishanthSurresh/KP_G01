@@ -1,6 +1,8 @@
+
 # Gitterific
 
 ![read](https://user-images.githubusercontent.com/35566310/142740237-d53da630-dc37-478a-bcc5-23cee595d510.jpg)
+
 
 #### Introduction
 
@@ -9,19 +11,19 @@ Gitterrific is a web application that analyzes the contents on GitHub using REST
 ##### This web appliction has several web pages with different individual funtionalities as mentioned bellow
 
 ###### 1. User Profile
-This web page contains all available information about the user, and other repositories information about the user. The user page is hyperlinked from the username from the results on the main search page. The repositories are also hyperlinked to their repository profile page respectively.
+This web page contains all available public profile information about a user, as well as all the other repositories of that user. The user profile page is hyperlinked from the username from the results on the main search page. The repositories are also hyperlinked to their profile page respectively.
 
 ###### 2. Repository Profile
-This page contains details about a repository and 20 latest issues of the repository with their information and a hyperlink for the issues statistics page. It also contains a hyperlink for the names of the collaborators of the repository to their user profile page and add a hyperlink to the repository commits page.
+This page contains all details about a repository, the 20 latest issues of the repository with their information and a hyperlink for the issues statistics page. It also contains a hyperlink for the names of the collaborators of the repository to their user profile page and add a hyperlink to the repository commits page.
 
 ###### 3. Repository Issues
-This page fetches the issues about repository and computes a word-level statistics of the issue titles. This page also count all unique words in descending order (by frequency of the words). This page is hyperlinked with repository profile page.
+This page fetches all the issues about the repository and computes a word-level statistics of the issue titles, counting all unique words in descending order (by frequency of the words). This page is hyperlinked with repository profile page.
 
 ###### 4. Topics
-For a topic, this page will display the latest 10 repositories containing this topic, in the same format as the results on the main search page.
+For a topic, the page will display the latest 10 repositories containing this topic, in the same format as the results on the main search page.
 
 ###### 5. Repository Commits
-For a repository (hyperlinked from the repository page), the top 100 newest commits are fetched by authorizing github tokens which will compile statistics about the top-10 committers who had the most number of commits, the minimum, maximum, and average number of additions and deletions across all these commits are also displayed. We have used Java 8 Streams to implement these functions.
+For a repository (hyperlinked from the repository page), the 100 newest commits are fetched and a compile statistics about the top-10 committers has been performed, i.e., users who had the most commits, the minimum, maximum, and average number of additions and deletions across all these commits are also displayed. We have used Java 8 Streams to implement these functions.
 
 
 ### 1. Play Framework - Installation
@@ -76,23 +78,21 @@ Then, you can run the tests with coverage computation using
 sbt jacoco
 Sample report is showned below:
 
-********************
-[info] Passed: Total 34, Failed 0, Errors 0, Passed 34
+...
+[info] Passed: Total 1, Failed 0, Errors 0, Passed 1
 [info]
 [info] ------- Jacoco Coverage Report -------
 [info]
-[info] Lines: 79.7% (>= required 0.0%) covered, 151 of 744 missed, OK
-[info] Instructions: 73.42% (>= required 0.0%) covered, 1789 of 6731 missed, OK
-[info] Branches: 44.32% (>= required 0.0%) covered, 98 of 176 missed, OK
-[info] Methods: 45.43% (>= required 0.0%) covered, 221 of 405 missed, OK
-[info] Complexity: 40.77% (>= required 0.0%) covered, 292 of 493 missed, OK
-[info] Class: 89.74% (>= required 0.0%) covered, 4 of 39 missed, OK
+[info] Lines: 67.33% (>= required 0.0%) covered, 108 of 178 missed, OK
+[info] Instructions: 40.03% (>= required 0.0%) covered, 1505 of 2182 missed, OK
+[info] Branches: 13.29% (>= required 0.0%) covered, 72 of 84 missed, OK
+[info] Methods: 15% (>= required 0.0%) covered, 168 of 210 missed, OK
+[info] Complexity: 16.06% (>= required 0.0%) covered, 209 of 252 missed, OK
+[info] Class: 54.14% (>= required 0.0%) covered, 9 of 21 missed, OK
 [info]
-[info] Check C:\Users\visha\eclipse-workspace\Gitterrific\Gitterrific_project_KPG01\target\scala-2.13\jacoco\report for detailed report
-[info]
-[success] Total time: 15 s, completed Nov. 20, 2021, 11:40:56 a.m.
-********************
-
+[info] Check /home/rene/play-samples-play-java-hello-world-tutorial/target/scala-2.13/jacoco/report for detailed report
+[info]  
+[success] Total time: 5 s, completed Nov 11, 2021, 6:47:22 AM
 The report directory (see above) contains the detailed HTML report in the familiar JaCoCo format.
 
 
@@ -126,7 +126,7 @@ sbt test:doc
 
 ## 9. Running / Development
 
-We can run this play framework application in http://localhost:9000/ on any web browser.
+visit http://localhost:9000/ in any web browser
 
 
 ### 10. Deployments
@@ -152,3 +152,12 @@ The Feature/Development is where all other feature developments occur and is fin
 - [Github API](https://codesnippet.io/github-api-tutorial/)
 
 - [GitHub API endpoints](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
+
+## 12. Contributions Best Practices
+
+### Commits
+
+- Write clear meaningful git commit messages (Do read [https://chris.beams.io/posts/git-commit/](https://chris.beams.io/posts/git-commit/))
+- Make sure your PR's description contains GitHub's special keyword references that automatically close the related issue when the PR is merged. (More info at [https://github.com/blog/1506-closing-issues-via-pull-requests](https://github.com/blog/1506-closing-issues-via-pull-requests) )
+- When you make very minor changes to a PR of yours (like for example fixing a failing Travis build or some small style corrections or minor changes requested by reviewers) make sure you squash your commits afterward so that you don't have an absurd number of commits for a very small fix. (Learn how to squash at [https://davidwalsh.name/squash-commits-git](https://davidwalsh.name/squash-commits-git) )
+- When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.

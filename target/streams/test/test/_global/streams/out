@@ -1,0 +1,142 @@
+[0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector(-Djacoco-agent.destfile=C:\Users\visha\Downloads\Gitterrific_project_KP_G01\Gitterrific_project_KPG01 (9)\Gitterrific_project_KPG01\target\scala-2.13\jacoco\data\jacoco.exec)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for com.novocode.junit.JUnitFramework produced 13 initial tasks for 13 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerTest, sbt.ForkMain$AnnotatedFingerscan@74650e52, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFullCommitsData[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFullCommitsData[0m finished, took 23.796 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestEmptyHomePage[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestEmptyHomePage[0m finished, took 0.341 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIndex[0m finished, took 0.323 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestTopic[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestTopic[0m finished, took 3.042 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearchWithInput[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearchWithInput[0m finished, took 0.285 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestName[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestName[0m finished, took 0.266 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestUser[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestUser[0m finished, took 0.269 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFetchUser[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFetchUser[0m finished, took 0.27 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestRepoDetail[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestRepoDetail[0m finished, took 1.307 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearchWithoutInput[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearchWithoutInput[0m finished, took 0.421 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssueStatistics[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssueStatistics[0m finished, took 0.824 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestCommits[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestCommits[0m finished, took 1.489 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestCommit[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestCommit[0m finished, took 0.234 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssues[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssues[0m finished, took 0.189 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssuesStats[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestIssuesStats[0m finished, took 0.247 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearch[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestSearch[0m finished, took 0.282 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFullCommitData[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest controllers.[33mHomeControllerTest[0m.[36mtestFullCommitData[0m finished, took 0.239 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 17 total, 33.853s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 17 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.CacheManagerTest, sbt.ForkMain$AnnotatedFingerscan@15d0c81b, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCacheManagerTest[0m.[36mCacheManagerTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCacheManagerTest[0m.[36mCacheManagerTest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.001s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(actors.SearchResultActorTest, sbt.ForkMain$AnnotatedFingerscan@6acdbdf5, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest actors.[33mSearchResultActorTest[0m.[36msearchresultactor[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest actors.[33mSearchResultActorTest[0m.[36msearchresultactor[0m finished, took 0.283 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.285s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.UserTest, sbt.ForkMain$AnnotatedFingerscan@4b1c1ea0, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mUserTest[0m.[36muserConstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mUserTest[0m.[36muserConstructorTest[0m finished, took 0.002 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.002s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.CommitsResultTest, sbt.ForkMain$AnnotatedFingerscan@17579e0f, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCommitsResultTest[0m.[36mconstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCommitsResultTest[0m.[36mconstructorTest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCommitsResultTest[0m.[36mtestSetter[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mCommitsResultTest[0m.[36mtestSetter[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.003s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(actors.SearchsupervisorTest, sbt.ForkMain$AnnotatedFingerscan@4d41cee, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest actors.[33mSearchsupervisorTest[0m.[36msearchsupervisortest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest actors.[33mSearchsupervisorTest[0m.[36msearchsupervisortest[0m finished, took 0.082 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.083s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.RepoIssuesTest, sbt.ForkMain$AnnotatedFingerscan@3712b94, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoIssuesTest[0m.[36mconstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoIssuesTest[0m.[36mconstructorTest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoIssuesTest[0m.[36mrepoissues[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoIssuesTest[0m.[36mrepoissues[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 2 total, 0.002s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 2 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.RepoProfileTest, sbt.ForkMain$AnnotatedFingerscan@2833cc44, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoProfileTest[0m.[36mRepoProfileConstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepoProfileTest[0m.[36mRepoProfileConstructorTest[0m finished, took 0.001 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.001s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.IssueSearchResultTest, sbt.ForkMain$AnnotatedFingerscan@33f88ab, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetgetIssueStatisticssTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetgetIssueStatisticssTest[0m finished, took 0.001 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetIssueStatisticsTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetIssueStatisticsTest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetRepoNameTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mIssueSearchResultTest[0m.[36mgetRepoNameTest[0m finished, took 0.001 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 3 total, 0.002s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 3 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.QuerySearchResultTest, sbt.ForkMain$AnnotatedFingerscan@27a8c74e, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mQuerySearchResultTest[0m.[36mgetRepoNameTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mQuerySearchResultTest[0m.[36mgetRepoNameTest[0m finished, took 0.003 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.003s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.SearchResultTest, sbt.ForkMain$AnnotatedFingerscan@2d8f65a4, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mSearchResultTest[0m.[36mconstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mSearchResultTest[0m.[36mconstructorTest[0m finished, took 0.002 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.003s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.TopicsResult, sbt.ForkMain$AnnotatedFingerscan@1b68ddbd, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mconstructorTest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mconstructorTest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mconstructorTestt[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mconstructorTestt[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mtest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mTopicsResult[0m.[36mtest[0m finished, took 0.0 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 3 total, 0.002s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 3 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(models.RepositoryTest, sbt.ForkMain$AnnotatedFingerscan@646d64ab, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run started[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepositoryTest[0m.[36mrepoConstructortest[0m started[0m
+[0m[[0m[0mdebug[0m] [0m[0mTest models.[33mRepositoryTest[0m.[36mrepoConstructortest[0m finished, took 0.002 sec[0m
+[0m[[0m[0mdebug[0m] [0m[0m[34mTest run finished: [0m[34m0 failed[0m[34m, [0m[34m0 ignored[0m[34m, 1 total, 0.004s[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 1 events.[0m
+[0m[[0m[0mdebug[0m] [0m[0mSummary for JUnit not available.[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 35, Failed 0, Errors 0, Passed 35[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	controllers.HomeControllerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.CacheManagerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	actors.SearchResultActorTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.UserTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.CommitsResultTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	actors.SearchsupervisorTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.RepoIssuesTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.RepoProfileTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.IssueSearchResultTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.QuerySearchResultTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.SearchResultTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.TopicsResult[0m
+[0m[[0m[0mdebug[0m] [0m[0m	models.RepositoryTest[0m

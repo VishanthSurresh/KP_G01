@@ -1,0 +1,21 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(jacoco, Some(1c97b213-a887-4cdb-8928-a90466d69a8d), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / jacoco[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-java-hello-world-tutorial[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mInstrumenting 61 classes to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\instrumented-classes[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 34, Failed 0, Errors 0, Passed 34[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m------- Jacoco Coverage Report -------[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mLines: 70.05% (>= required 0.0%) covered, 304 of 1015 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mInstructions: 64.98% (>= required 0.0%) covered, 2820 of 8053 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mBranches: 40.82% (>= required 0.0%) covered, 116 of 196 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mMethods: 49.3% (>= required 0.0%) covered, 255 of 503 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mComplexity: 43.93% (>= required 0.0%) covered, 337 of 601 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mClass: 81.97% (>= required 0.0%) covered, 11 of 61 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mCheck C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\report for detailed report[0m
+[0m[[0m[0minfo[0m] [0m[0m [0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 20 s, completed 06-Dec-2021, 11:46:04 AM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m

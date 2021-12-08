@@ -28,8 +28,8 @@ import static java.util.stream.Collectors.*;
 
 
 public class QuerySearchResult {
-  private String searchTerm;
-  private List<SearchResult> posts;
+  public String searchTerm;
+  public List<SearchResult> posts;
 
   public QuerySearchResult(String query) {
     this.searchTerm = query;

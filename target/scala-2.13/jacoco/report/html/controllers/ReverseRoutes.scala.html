@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReverseRoutes.scala</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Jacoco Coverage Report</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">ReverseRoutes.scala</span></div><h1>ReverseRoutes.scala</h1><pre class="source lang-java linenums">// @GENERATOR:play-routes-compiler
+// @SOURCE:conf/routes
+
+import play.api.mvc.Call
+
+
+import _root_.controllers.Assets.Asset
+import _root_.play.libs.F
+
+// @LINE:6
+package controllers {
+
+  // @LINE:6
+<span class="fc" id="L14">  class ReverseHomeController(_prefix: =&gt; String) {</span>
+    def _defaultPrefix: String = {
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+    }
+
+  
+    // @LINE:9
+    def topics(query:String): Call = {
+      
+<span class="nc" id="L23">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;topic/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;query&quot;, query)))</span>
+    }
+  
+    // @LINE:8
+    def search(query:String): Call = {
+      
+<span class="nc" id="L29">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;lookup/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;query&quot;, query)))</span>
+    }
+  
+    // @LINE:10
+    def issues(query:String, q1:String): Call = {
+      
+<span class="nc" id="L35">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;issue/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;query&quot;, query)) + &quot;/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;q1&quot;, q1)))</span>
+    }
+  
+    // @LINE:13
+    def userDetails(login:String): Call = {
+      
+<span class="nc" id="L41">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;users/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;login&quot;, login)))</span>
+    }
+  
+    // @LINE:11
+    def issuesstat(): Call = {
+      
+<span class="nc" id="L47">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;issuestatistics&quot;)</span>
+    }
+  
+    // @LINE:7
+    def ws: Call = {
+      
+<span class="fc" id="L53">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;ws&quot;)</span>
+    }
+  
+    // @LINE:17
+    def commits(owner:String, repo:String): Call = {
+      
+<span class="nc" id="L59">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;repos/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;owner&quot;, owner)) + &quot;/&quot; + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind(&quot;repo&quot;, repo)) + &quot;/commits&quot;)</span>
+    }
+  
+    // @LINE:6
+    def index(): Call = {
+      
+<span class="nc" id="L65">      Call(&quot;GET&quot;, _prefix)</span>
+    }
+  
+  }
+
+  // @LINE:21
+<span class="fc" id="L71">  class ReverseAssets(_prefix: =&gt; String) {</span>
+    def _defaultPrefix: String = {
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">      if (_prefix.endsWith(&quot;/&quot;)) &quot;&quot; else &quot;/&quot;</span>
+    }
+
+  
+    // @LINE:21
+    def versioned(file:Asset): Call = {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">      implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map((&quot;path&quot;, &quot;/public&quot;))); _rrc</span>
+<span class="fc" id="L80">      Call(&quot;GET&quot;, _prefix + { _defaultPrefix } + &quot;assets/&quot; + implicitly[play.api.mvc.PathBindable[Asset]].unbind(&quot;file&quot;, file))</span>
+    }
+  
+  }
+
+
+<span class="fc" id="L86">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>

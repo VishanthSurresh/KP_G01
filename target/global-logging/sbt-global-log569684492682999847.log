@@ -1,0 +1,23 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(jacoco, Some(174af826-0cdf-495a-bb38-d2851ec371e2), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Test / jacoco[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 13 Java sources to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\test-classes ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mExporting web-assets-test:play-java-hello-world-tutorial[0m
+[0m[[0m[0minfo[0m] [0m[0mInstrumenting 58 classes to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\instrumented-classes[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 36, Failed 0, Errors 0, Passed 36[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m------- Jacoco Coverage Report -------[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mLines: 77.33% (>= required 0.0%) covered, 212 of 935 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mInstructions: 72.91% (>= required 0.0%) covered, 2114 of 7805 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mBranches: 43.94% (>= required 0.0%) covered, 111 of 198 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mMethods: 49.35% (>= required 0.0%) covered, 235 of 464 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mComplexity: 44.05% (>= required 0.0%) covered, 315 of 563 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0mClass: 86.21% (>= required 0.0%) covered, 8 of 58 missed, OK[0m
+[0m[[0m[0minfo[0m] [0m[0m[0m
+[0m[[0m[0minfo[0m] [0m[0mCheck C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\jacoco\report for detailed report[0m
+[0m[[0m[0minfo[0m] [0m[0m [0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 26 s, completed 05-Dec-2021, 7:48:10 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
+[0m[[0m[0mdebug[0m] [0m[0mForcing garbage collection...[0m

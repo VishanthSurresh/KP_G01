@@ -1,0 +1,29 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(run, Some(970877fa-5ec1-4c67-be61-e2a62a1fae8c), Some(CommandSource(console0)))[0m
+[0m[[0m[0mdebug[0m] [0m[0mEvaluating tasks: Compile / run[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 2 Java sources to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\classes ...[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\actors\CommitsActor.java:39:1: constructor CommitsActor in class actors.CommitsActor cannot be applied to given types;[0m
+[0m[[0m[31merror[0m] [0m[0m  required: no arguments[0m
+[0m[[0m[31merror[0m] [0m[0m  found: services.Commitservices[0m
+[0m[[0m[31merror[0m] [0m[0m  reason: actual and formal argument lists differ in length[0m
+[0m[[0m[31merror[0m] [0m[0mnew CommitsActor(cs)[0m
+[0m[[0m[0minfo[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\controllers\HomeController.java: HomeController.java uses unchecked or unsafe operations.[0m
+[0m[[0m[0minfo[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\controllers\HomeController.java: Recompile with -Xlint:unchecked for details.[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) javac returned non-zero exit code[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0minfo[0m] [0m[0mcompiling 2 Java sources to C:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\target\scala-2.13\classes ...[0m
+[0m[[0m[31merror[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\actors\CommitsActor.java:39:1: constructor CommitsActor in class actors.CommitsActor cannot be applied to given types;[0m
+[0m[[0m[31merror[0m] [0m[0m  required: no arguments[0m
+[0m[[0m[31merror[0m] [0m[0m  found: services.Commitservices[0m
+[0m[[0m[31merror[0m] [0m[0m  reason: actual and formal argument lists differ in length[0m
+[0m[[0m[31merror[0m] [0m[0mnew CommitsActor(cs)[0m
+[0m[[0m[0minfo[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\controllers\HomeController.java: HomeController.java uses unchecked or unsafe operations.[0m
+[0m[[0m[0minfo[0m] [0m[0mC:\Users\visha\OneDrive\Desktop\Gitterrific_project_KPG01\Gitterrific_project_KPG01\app\controllers\HomeController.java: Recompile with -Xlint:unchecked for details.[0m
+[0m[[0m[31merror[0m] [0m[0m(Compile / [31mcompileIncremental[0m) javac returned non-zero exit code[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
+[0m[[0m[32msuccess[0m] [0m[0mTotal time: 160 s (02:40), completed 04-Dec-2021, 12:08:36 PM[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(shell, None, None)[0m
