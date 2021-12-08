@@ -83,7 +83,7 @@ Sample report is showned below:
 [info]
 [info] ------- Jacoco Coverage Report -------
 [info]
-[info] Lines: 67.33% (>= required 0.0%) covered, 108 of 178 missed, OK
+[info] Lines: 80.33% (>= required 0.0%) covered, 108 of 178 missed, OK
 [info] Instructions: 40.03% (>= required 0.0%) covered, 1505 of 2182 missed, OK
 [info] Branches: 13.29% (>= required 0.0%) covered, 72 of 84 missed, OK
 [info] Methods: 15% (>= required 0.0%) covered, 168 of 210 missed, OK
@@ -152,6 +152,8 @@ The Feature/Development is where all other feature developments occur and is fin
 - [Github API](https://codesnippet.io/github-api-tutorial/)
 
 - [GitHub API endpoints](https://docs.github.com/en/rest/overview/endpoints-available-for-github-apps)
+
+- [Akka Documentation](https://akka.io/docs/) 
 
 ## 12. Contributions Best Practices
 
